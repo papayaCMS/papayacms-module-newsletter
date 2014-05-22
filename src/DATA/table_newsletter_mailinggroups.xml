@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_mailinggroups" prefix="yes">
+  <fields>
+    <field name="mailinggroup_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="mailinggroup_title" type="string" size="200" null="no"/>
+    <field name="lng_id" type="integer" size="4" null="no"/>
+    <field name="mailinggroup_mode" type="integer" size="2" null="no"/>
+    <field name="mailinggroup_default_textview" type="integer" size="4" null="no"/>
+    <field name="mailinggroup_default_htmlview" type="integer" size="4" null="no"/>
+    <field name="mailinggroup_default_intro" type="string" size="65535" null="no"/>
+    <field name="mailinggroup_default_footer" type="string" size="65535" null="no"/>
+    <field name="mailinggroup_default_intro_nl2br" type="integer" size="4" null="no"/>
+    <field name="mailinggroup_default_footer_nl2br" type="integer" size="4" null="no"/>
+    <field name="mailinggroup_default_subject" type="string" size="200" null="no"/>
+    <field name="mailinggroup_default_sender" type="string" size="200" null="no"/>
+    <field name="mailinggroup_default_senderemail" type="string" size="200" null="no"/>
+    <field name="mailinggroup_default_archive_url" type="string" size="250" null="no"/>
+    <field name="mailinggroup_default_unsubscribe_url" type="string" size="250" null="no"/>
+    <field name="mailinggroup_default_subscribers" type="integer" size="4" null="no"/>
+    <field name="mailinggroup_editor_group" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>mailinggroup_id</field>
+    </primary-key>
+    <key name="mailinggroup_title">
+      <field>mailinggroup_title</field>
+    </key>
+  </keys>
+</table>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_bayesian_references" prefix="yes">
+  <fields>
+    <field name="reference_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="category_id" type="string" size="10" null="no"/>
+    <field name="reference_data" type="string" size="65535" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>reference_id</field>
+    </primary-key>
+  </keys>
+</table>

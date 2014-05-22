@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_mailingcontent" prefix="yes">
+<fields>
+<field name="mailingcontent_nl2br" type="integer" size="2"  null="no"/>
+<field name="mailingcontent_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="mailing_id" type="integer" size="8"  null="no"/>
+<field name="mailingcontent_pos" type="integer" size="8"  null="no"/>
+<field name="mailingcontent_title" type="string" size="250"  null="no"/>
+<field name="mailingcontent_subtitle" type="string" size="65535"  null="no"/>
+<field name="mailingcontent_text" type="string" size="65535"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>mailingcontent_id</field></primary-key>
+</keys>
+</table>

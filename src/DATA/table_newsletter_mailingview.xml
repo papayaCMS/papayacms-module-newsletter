@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_mailingview" prefix="yes">
+<fields>
+<field name="mailingview_id" type="integer" size="2"  null="no" autoinc="yes"/>
+<field name="mailing_id" type="integer" size="2"  null="no"/>
+<field name="mailingview_module_guid" type="string" size="255"  null="no"/>
+<field name="mailingview_conf" type="string" size="65535"  null="no"/>
+<field name="mailingview_title" type="string" size="200"  null="no"/>
+<field name="mailingview_type" type="integer" size="2"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>mailingview_id</field></primary-key>
+</keys>
+</table>

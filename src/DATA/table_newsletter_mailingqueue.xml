@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="newsletter_mailingqueue" prefix="yes">
+  <fields>
+    <field name="mailingqueue_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="mailingqueue_email" type="string" size="200" null="no"/>
+    <field name="mailingqueue_format" type="integer" size="4" null="no"/>
+    <field name="mailingqueue_done" type="integer" size="2" null="no"/>
+    <field name="mailingqueue_subject" type="string" size="250" null="no"/>
+    <field name="mailingqueue_from" type="string" size="250" null="no"/>
+    <field name="mailingqueue_text_data" type="string" size="65535" null="no"/>
+    <field name="mailingqueue_html_data" type="string" size="65535" null="no"/>
+    <field name="mailingqueue_text_status" type="integer" size="4" null="no"/>
+    <field name="mailingqueue_html_status" type="integer" size="4" null="no"/>
+    <field name="mailingqueue_created" type="integer" size="8" null="no"/>
+    <field name="mailingqueue_scheduled" type="integer" size="8" null="no"/>
+    <field name="mailingqueue_sent" type="integer" size="8" null="no"/>
+    <field name="newsletter_list_id" type="integer" size="8" null="no"/>
+    <field name="mailingqueue_url" type="string" size="250" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>mailingqueue_id</field>
+    </primary-key>
+    <key name="mailingqueue_done">
+      <field>mailingqueue_done</field>
+      <field>mailingqueue_created</field>
+    </key>
+  </keys>
+</table>

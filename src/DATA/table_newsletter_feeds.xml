@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_feeds" prefix="yes">
+  <fields>
+    <field name="mailingfeed_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="mailinggroup_id" type="integer" size="4" null="no"/>
+    <field name="mailingfeed_url" type="string" size="65535" null="no"/>
+    <field name="mailingfeed_minimum" type="integer" size="4" null="no"/>
+    <field name="mailingfeed_maximum" type="integer" size="4" null="no"/>
+    <field name="mailingfeed_period" type="integer" size="4" null="no"/>
+    <field name="mailingfeed_position" type="integer" size="4" null="no"/>
+    <field name="mailingfeed_template" type="string" size="255" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>mailingfeed_id</field>
+    </primary-key>
+    <key name="mailinggroup_id">
+      <field>mailinggroup_id</field>
+    </key>
+  </keys>
+</table>

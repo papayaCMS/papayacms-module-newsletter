@@ -1,0 +1,58 @@
+<?xml version="1.0"  encoding="ISO-8859-1" ?>
+  <modulegroup>
+  <name>Newsletter</name>
+  <description>
+    Newsletter system that allows editors to edit newsletters efficiently, and manage
+    subscribers and mailings.
+  </description>
+  <modules>
+    <module type="admin" guid="96157ec2db3a16c368ff1d21e8a4824a" name="Newsletter" class="edmodule_newsletter" file="edmodule_newsletter.php" glyph="newsletter.png">
+      Newsletter administration module used to create and edit newsletters.
+    </module>
+    <module type="page" guid="a9484c3dcd257ab2e228fc144020e134" name="Newsletter Subscribe" class="content_newsletter" file="content_newsletter_subscribe.php">
+      Newsletter subscription form. Users can register for a newsletter.
+    </module>
+    <module type="page" guid="fd33503664f3515ea2b4738c98b71232" name="Newsletter Unsubscribe" class="content_newsletter_unsubscribe" file="content_newsletter_unsubscribe.php">
+      Newsletter unsubscribe form.
+    </module>
+    <module type="page" guid="d670b1d8e210f9974fd6fb2586c1a3ec" name="Import" class="content_newsletter_import" file="content_newsletter_import.php">
+      A page module that displays a mailing. Used to implement a newsletter archive for your website.
+    </module>
+    <module type="page" guid="331b91e26955c9bf61e6024875fce839" name="Newsletter User Profile" class="NewsletterUserProfile" file="UserProfile.php">
+      Newsletter user profile page for managing subscriptions.
+    </module>
+    <module type="cronjob" guid="885887b18117b4ef5b90cf9f981e2c5b" name="Newsletter send robot" class="NewsletterRobot" file="Robot.php">
+      A cronjob that creates and sends mailings automatically.
+    </module>
+    <module type="cronjob" guid="196a33d53a653cf92875ca38a79068a7" name="Send queued newsletters" class="cronjob_newsletter_send" file="cronjob_newsletter_send.php">
+      A cronjob that sends out all the newsletter emails queued in the outbox.
+    </module>
+    <module type="connector" guid="bfde211a18056caca770c17f8eb4ceea" name="Newsletter Connector" class="connector_newsletter" file="connector_newsletter.php">
+      Newsletter Connector
+    </module>
+    <module type="box" guid="aea79cdab5848d99fb5f97ddd2fa74a6" name="Newsletter subscribe box" class="actbox_newsletter_subscribe" file="actbox_newsletter_subscribe.php">
+      Newsletter module to let the surfer subscribe a newsletter.
+    </module>
+    <module type="cronjob" guid="7a9f60b24be9f03052178e23726e4043" name="Bounce Handler Mailbox Reader" class="cronjob_mailbox_reader" file="cronjob_mailbox_reader.php">
+      A cronjob that requests emails of a email account and store them in the database.
+    </module>
+  </modules>
+  <tables>
+    <table name="newsletter_lists"/>
+    <table name="newsletter_protocol"/>
+    <table name="newsletter_subscribers"/>
+    <table name="newsletter_subscriptions"/>
+    <table name="newsletter_mailings"/>
+    <table name="newsletter_mailinggroups"/>
+    <table name="newsletter_feeds"/>
+    <table name="newsletter_mailingoutput"/>
+    <table name="newsletter_mailingcontent"/>
+    <table name="newsletter_mailingview"/>
+    <table name="newsletter_mailingqueue"/>
+    <table name="newsletter_bayesian_categories"/>
+    <table name="newsletter_bayesian_ignorewords"/>
+    <table name="newsletter_bayesian_references"/>
+    <table name="newsletter_bayesian_words"/>
+    <table name="newsletter_bouncinghandler_mails"/>
+  </tables>
+</modulegroup>

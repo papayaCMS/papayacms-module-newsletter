@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_bayesian_words" prefix="yes">
+  <fields>
+    <field name="token" type="string" size="32" null="no"/>
+    <field name="category_id" type="string" size="10" null="no"/>
+    <field name="word_count" type="integer" size="8" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>token</field>
+      <field>category_id</field>
+    </primary-key>
+    <key name="category_id">
+      <field>category_id</field>
+    </key>
+  </keys>
+</table>

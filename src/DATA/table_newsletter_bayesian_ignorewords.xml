@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_bayesian_ignorewords" prefix="yes">
+  <fields>
+    <field name="ignoreword_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="ignoreword_hash" type="string" size="32" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>ignoreword_id</field>
+    </primary-key>
+  </keys>
+</table>

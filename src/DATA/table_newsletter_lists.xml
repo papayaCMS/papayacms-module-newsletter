@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="newsletter_lists" prefix="yes">
+  <fields>
+    <field name="newsletter_list_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="lng_id" type="integer" size="4" null="no"/>
+    <field name="newsletter_list_name" type="string" size="50" null="no"/>
+    <field name="newsletter_list_description" type="string" size="200" null="no"/>
+    <field name="newsletter_list_format" type="string" size="2" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>newsletter_list_id</field>
+    </primary-key>
+  </keys>
+</table>

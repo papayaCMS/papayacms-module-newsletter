@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_bayesian_categories" prefix="yes">
+  <fields>
+    <field name="category_id" type="string" size="10" null="no"/>
+    <field name="category_probability" type="float" size="5,4" null="no"/>
+    <field name="category_words" type="integer" size="8" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>category_id</field>
+    </primary-key>
+  </keys>
+</table>

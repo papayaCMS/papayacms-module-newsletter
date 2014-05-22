@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_subscriptions" prefix="yes">
+<fields>
+<field name="subscriber_id" type="integer" size="8"  null="no"/>
+<field name="newsletter_list_id" type="integer" size="8"  null="no"/>
+<field name="subscription_status" type="integer" size="8"  null="no"/>
+<field name="subscription_format" type="integer" size="8"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>subscriber_id</field><field>newsletter_list_id</field></primary-key>
+<key name="newsletter_list_id">
+<field>newsletter_list_id</field><field>subscription_status</field></key>
+</keys>
+</table>

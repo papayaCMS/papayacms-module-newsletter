@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_mailingoutput" prefix="yes">
+  <fields>
+    <field name="mailingoutput_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="mailing_id" type="integer" size="8" null="no"/>
+    <field name="mailingoutput_title" type="string" size="200" null="no"/>
+    <field name="mailingoutput_subject" type="string" size="200" null="no"/>
+    <field name="mailingoutput_sender" type="string" size="200" null="no"/>
+    <field name="mailingoutput_sendermail" type="string" size="200" null="no"/>
+    <field name="mailingoutput_text_view" type="integer" size="8" null="no"/>
+    <field name="mailingoutput_text_data" type="string" size="65535" null="no"/>
+    <field name="mailingoutput_text_status" type="integer" size="2" null="no"/>
+    <field name="mailingoutput_html_view" type="integer" size="2" null="no"/>
+    <field name="mailingoutput_html_data" type="string" size="65535" null="no"/>
+    <field name="mailingoutput_html_status" type="integer" size="2" null="no"/>
+    <field name="mailingoutput_subscribers" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>mailingoutput_id</field>
+    </primary-key>    
+    <key name="mailingoutput_text_view">
+      <field>mailingoutput_text_view</field>
+    </key>
+    <key name="mailingoutput_html_view">
+      <field>mailingoutput_html_view</field>
+    </key>
+  </keys>
+</table>

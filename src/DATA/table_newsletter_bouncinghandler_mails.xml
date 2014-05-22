@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_bouncinghandler_mails" prefix="yes">
+  <fields>
+    <field name="mail_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="mail_uid" type="string" size="70" null="no"/>
+    <field name="date" type="string" size="32" null="no"/>
+    <field name="subject" type="string" size="255" null="no"/>
+    <field name="sender" type="string" size="255" null="no"/>
+    <field name="content" type="string" size="65535" null="no"/>
+    <field name="category_id" type="integer" size="4" null="no" default="1"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>mail_id</field>
+    </primary-key>
+    <key name="mail_uid">
+      <field>mail_uid</field>
+    </key>
+    <key name="category_id">
+      <field>category_id</field>
+    </key>
+  </keys>
+</table>

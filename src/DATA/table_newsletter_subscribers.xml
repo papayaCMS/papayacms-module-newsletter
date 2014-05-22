@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="newsletter_subscribers" prefix="yes">
+  <fields>
+    <field name="subscriber_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="subscriber_email" type="string" size="250" null="no"/>
+    <field name="subscriber_salutation" type="integer" size="4" null="no"/>
+    <field name="subscriber_title" type="string" size="50" null="no"/>
+    <field name="subscriber_firstname" type="string" size="40" null="no"/>
+    <field name="subscriber_lastname" type="string" size="40" null="no"/>
+    <field name="subscriber_branch" type="string" size="100" null="no"/>
+    <field name="subscriber_company" type="string" size="100" null="no"/>
+    <field name="subscriber_position" type="string" size="50" null="no"/>
+    <field name="subscriber_section" type="string" size="50" null="no"/>
+    <field name="subscriber_street" type="string" size="100" null="no"/>
+    <field name="subscriber_housenumber" type="string" size="20" null="no"/>
+    <field name="subscriber_postalcode" type="string" size="10" null="no"/>
+    <field name="subscriber_city" type="string" size="50" null="no"/>
+    <field name="subscriber_phone" type="string" size="50" null="no"/>
+    <field name="subscriber_mobile" type="string" size="50" null="no"/>
+    <field name="subscriber_fax" type="string" size="50" null="no"/>
+    <field name="subscriber_data" type="string" size="65535" null="no"/>
+    <field name="subscriber_chgtoken" type="string" size="10" null="no"/>
+    <field name="subscriber_chgtime" type="integer" size="8" null="no"/>
+    <field name="subscriber_status" type="integer" size="2" null="no" default="1"/>
+    <field name="subscriber_bounces" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>subscriber_id</field>
+    </primary-key>
+    <key name="subscriber_email" unique="yes">
+      <field>subscriber_email</field>
+    </key>
+  </keys>
+</table>
