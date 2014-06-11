@@ -1418,7 +1418,6 @@ class papaya_newsletter extends base_newsletter {
         $this->tableSubscribers
       );
     }
-    $this->databaseDebugNExtQuery();
     $res = $this->databaseQueryFmt(
       $sql, $params, @(int)$this->subscribersPerPage, @(int)$this->params['offset']
     );
