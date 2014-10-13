@@ -76,6 +76,7 @@ class actbox_newsletter_subscribe extends base_actionbox {
     'text_privacy' => array('Text', 'isSomeText', FALSE, 'richtext', 10),
     'show_privacy' => array('Show', 'isNum', TRUE, 'yesno', NULL, '', 0),
     'need_privacy' => array('Needed', 'isNum', TRUE, 'yesno', NULL, '', 0),
+    'use_token' => array('Use dialog Token', 'isNum', TRUE, 'yesno', NULL, '', 1),
     'Format',
     'cap_format' => array('Caption', 'isNoHTML', TRUE, 'input', 200, '',
       'Newsletter format'),
@@ -695,7 +696,9 @@ class actbox_newsletter_subscribe extends base_actionbox {
         $this, $this->paramName, $editFields, $data, $hidden
       );
       $this->subscribeDialog->loadParams();
-
+      if (!$this->data['use_token']) {
+        $this->subscribeDialog->useToken = FALSE;
+      }
       // Set Target-PID for form, if it's set in Backend
       if (isset($this->data['target_pid']) && $this->data['target_pid'] > 0) {
         $this->subscribeDialog->baseLink = $this->getBaseLink($this->data['target_pid']);
