@@ -78,6 +78,7 @@ class content_newsletter extends base_content {
     'text_privacy' => array('Text', 'isSomeText', FALSE, 'richtext', 10),
     'show_privacy' => array('Show', 'isNum', TRUE, 'yesno', NULL, '', 0),
     'need_privacy' => array('Needed', 'isNum', TRUE, 'yesno', NULL, '', 0),
+    'use_token' => array('Use dialog Token', 'isNum', TRUE, 'yesno', NULL, '', 1),
     'Format',
     'cap_format' => array('Caption', 'isNoHTML', TRUE, 'input', 200, '',
       'Newsletter format'),
@@ -775,7 +776,9 @@ class content_newsletter extends base_content {
         $this, $this->paramName, $editFields, $data, $hidden
       );
       $this->subscribeDialog->loadParams();
-
+      if ($this->data['use_token']) {
+        $this->subscribeDialog->useToken = FALSE;
+      }
       if (isset($this->data['cap_submit'])) {
         $this->subscribeDialog->buttonTitle = @(string)$this->data['cap_submit'];
       } else {
