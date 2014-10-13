@@ -776,7 +776,7 @@ class content_newsletter extends base_content {
         $this, $this->paramName, $editFields, $data, $hidden
       );
       $this->subscribeDialog->loadParams();
-      if ($this->data['use_token']) {
+      if (!$this->data['use_token']) {
         $this->subscribeDialog->useToken = FALSE;
       }
       if (isset($this->data['cap_submit'])) {

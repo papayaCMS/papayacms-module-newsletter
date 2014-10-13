@@ -696,7 +696,7 @@ class actbox_newsletter_subscribe extends base_actionbox {
         $this, $this->paramName, $editFields, $data, $hidden
       );
       $this->subscribeDialog->loadParams();
-      if ($this->data['use_token']) {
+      if (!$this->data['use_token']) {
         $this->subscribeDialog->useToken = FALSE;
       }
       // Set Target-PID for form, if it's set in Backend
