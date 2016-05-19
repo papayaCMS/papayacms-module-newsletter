@@ -843,8 +843,7 @@ class base_newsletter extends base_db {
   */
   function getActionToken() {
     srand((double)microtime() * 1000000);
-    crypt(uniqid(rand()));
-    return substr(crypt(uniqid(rand())), 3, 10);
+    return substr(crypt(uniqid(rand()), uniqid(rand())), 3, 10);
   }
 
   /**
