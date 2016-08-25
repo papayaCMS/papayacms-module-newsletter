@@ -5979,17 +5979,16 @@ class papaya_newsletter extends base_newsletter {
       'import_dups_mode' => $this->params['import_dups_mode'],
     );
     $msg = '';
-    $dialog = new base_msgdialog(
+    $this->importDialog = new base_msgdialog(
       $this, $this->paramName, $hidden, $msg, 'question'
     );
-    $dialog->baseLink = $this->baseLink;
-    $dialog->buttonTitle = 'Yes';
+    $this->importDialog->baseLink = $this->baseLink;
+    $this->importDialog->buttonTitle = 'Yes';
     $this->importDialog .= $this->getProcessImportScript();
     $this->importDialog .= sprintf(
       '<msgdialog title="%s" width="100%%" action="#" type="question">'.LF,
       papaya_strings::escapeHTMLChars($this->_gt('Question'))
     );
-    $this->importDialog .= $dialog->getHidden();
     $this->importDialog .= sprintf(
       '<message>%s</message>'.LF,
       papaya_strings::escapeHTMLChars($this->_gt('Is this correct?'))
