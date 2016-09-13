@@ -94,6 +94,11 @@ class papaya_newsletter extends base_newsletter {
   var $bounce = NULL;
 
   /**
+   * @var string|base_dialog|base_msgdialog
+   */
+  private $importDialog = NULL;
+
+  /**
   * Initialize parameters
   *
   * @access public
@@ -5969,11 +5974,11 @@ class papaya_newsletter extends base_newsletter {
   * generate confirmation dialog for import
   */
   function initializeImportConfirmDialog() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
+    /*include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
     $hidden = array(
       'cmd' => 'import_csv',
       'step' => 3,
-      'mode' => @$this->params['mode'],
+      'mode' => isset($this->params['mode']) ? $this->params['mode'] : '',
       'import_newsletter_list_id' => $this->params['import_newsletter_list_id'],
       'import_surfer_status' => $this->params['import_surfer_status'],
       'import_dups_mode' => $this->params['import_dups_mode'],
@@ -5983,8 +5988,8 @@ class papaya_newsletter extends base_newsletter {
       $this, $this->paramName, $hidden, $msg, 'question'
     );
     $this->importDialog->baseLink = $this->baseLink;
-    $this->importDialog->buttonTitle = 'Yes';
-    $this->importDialog .= $this->getProcessImportScript();
+    $this->importDialog->buttonTitle = 'Yes';*/
+    $this->importDialog = $this->getProcessImportScript();
     $this->importDialog .= sprintf(
       '<msgdialog title="%s" width="100%%" action="#" type="question">'.LF,
       papaya_strings::escapeHTMLChars($this->_gt('Question'))
