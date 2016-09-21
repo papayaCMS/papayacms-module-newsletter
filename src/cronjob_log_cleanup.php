@@ -77,6 +77,7 @@ class cronjob_log_cleanup extends base_cronjob {
     if ($logCleanup !== NULL) {
       $this->_logCleanup = $logCleanup;
     } elseif ($this->_logCleanup === NULL) {
+      include_once(__DIR__.'/Log/Cleanup.php');
       $this->_logCleanup = new PapayaModuleNewsletterLogCleanup();
     }
     return $this->_logCleanup;
