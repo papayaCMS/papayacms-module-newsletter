@@ -3,7 +3,7 @@
 * This code opens an imap mailbox and reads in the messages to store them in
 * the database.
 *
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2016 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   papaya Commercial License (PCL)
 *
@@ -12,8 +12,8 @@
 * laws and treaties. papaya owns the title, copyright, and other intellectual
 * property rights in the Software. The Software is licensed, not sold.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 * @version $Id: mailbox_reader_imap.php 2 2013-12-09 15:38:42Z weinert $
 */
 
@@ -25,8 +25,8 @@ require_once(dirname(__FILE__).'/mailbox_reader.php');
 /**
 * Read inputs of a imap account and store it in the database
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 */
 class mailbox_reader_imap extends mailbox_reader {
   /**

@@ -2,7 +2,7 @@
 /**
 * Newsletter - unsubscribe viewer functionality
 *
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2016 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   papaya Commercial License (PCL)
 *
@@ -11,8 +11,8 @@
 * laws and treaties. papaya owns the title, copyright, and other intellectual
 * property rights in the Software. The Software is licensed, not sold.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 * @version $Id: output_newsletter_unsubscribe.php 12 2014-02-20 11:30:17Z SystemVCS $
 */
 
@@ -24,8 +24,8 @@ require_once(dirname(__FILE__).'/base_newsletter.php');
 /**
 * Newsletter - genral functionality
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 */
 class output_newsletter_unsubscribe extends base_newsletter {
 

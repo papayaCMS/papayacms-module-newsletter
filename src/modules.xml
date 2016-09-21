@@ -36,6 +36,9 @@
     <module type="cronjob" guid="7a9f60b24be9f03052178e23726e4043" name="Bounce Handler Mailbox Reader" class="cronjob_mailbox_reader" file="cronjob_mailbox_reader.php">
       A cronjob that requests emails of a email account and store them in the database.
     </module>
+    <module type="cronjob" guid="5a3beda1de2b4c23d54d263f3a90739a" name="Log Cleanup Cronjob" class="cronjob_cleanup_log" file="cronjob_cleanup_log.php">
+      A cronjob that removes unconfirmed log entries (e.g. subscriptions and unsubscriptions) older than a configurable amount of time.
+    </module>
   </modules>
   <tables>
     <table name="newsletter_lists"/>

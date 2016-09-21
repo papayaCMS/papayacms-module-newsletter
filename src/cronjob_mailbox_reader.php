@@ -3,7 +3,7 @@
 * Implements the access to an external mailbox account. Read-Only access. Mails of the
 * account will be stored in the database
 *
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2016 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   papaya Commercial License (PCL)
 *
@@ -12,8 +12,8 @@
 * laws and treaties. papaya owns the title, copyright, and other intellectual
 * property rights in the Software. The Software is licensed, not sold.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 * @version $Id: cronjob_mailbox_reader.php 2 2013-12-09 15:38:42Z weinert $
 */
 
@@ -25,8 +25,8 @@ require_once(PAPAYA_INCLUDE_PATH.'system/base_cronjob.php');
 /**
 * Implements the access to an external mailbox account. Read-Only access.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 */
 class cronjob_mailbox_reader extends base_cronjob {
 

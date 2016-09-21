@@ -2,7 +2,7 @@
 /**
 * Provides methods accessing the database of the bayesian filter.
 *
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2016 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   papaya Commercial License (PCL)
 *
@@ -11,16 +11,16 @@
 * laws and treaties. papaya owns the title, copyright, and other intellectual
 * property rights in the Software. The Software is licensed, not sold.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 * @version $Id: bayesian_db.php 2 2013-12-09 15:38:42Z weinert $
 */
 
 /**
 * {%SHORT_CLASS_DESCRIPTION%}
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 */
 class bayesian_db extends base_db {
 

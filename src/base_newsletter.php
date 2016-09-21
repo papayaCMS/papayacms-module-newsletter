@@ -2,7 +2,7 @@
 /**
 * Newsletter administration
 *
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2016 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   papaya Commercial License (PCL)
 *
@@ -11,8 +11,8 @@
 * laws and treaties. papaya owns the title, copyright, and other intellectual
 * property rights in the Software. The Software is licensed, not sold.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 * @version $Id: base_newsletter.php 11 2014-02-19 18:24:09Z SystemVCS $
 */
 
@@ -24,8 +24,8 @@ require_once(PAPAYA_INCLUDE_PATH.'system/sys_base_db.php');
 /**
 * Newsletter administration
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 */
 class base_newsletter extends base_db {
 

@@ -2,7 +2,7 @@
 /**
 * Provides a set of methods for accessing the bounce handler tables of the database
 *
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2016 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   papaya Commercial License (PCL)
 *
@@ -11,8 +11,8 @@
 * laws and treaties. papaya owns the title, copyright, and other intellectual
 * property rights in the Software. The Software is licensed, not sold.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 * @version $Id: newsletter_bounce_db.php 2 2013-12-09 15:38:42Z weinert $
 */
 
@@ -24,8 +24,8 @@ require_once(PAPAYA_INCLUDE_PATH.'/system/sys_base_db.php');
 /**
 * {%SHORT_CLASS_DESCRIPTION%}
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 */
 class newsletter_bounce_db extends base_db {
 

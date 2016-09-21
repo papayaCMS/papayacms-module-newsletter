@@ -2,7 +2,7 @@
 /**
 * Newsletter connector class
 *
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2016 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   papaya Commercial License (PCL)
 *
@@ -11,8 +11,8 @@
 * laws and treaties. papaya owns the title, copyright, and other intellectual
 * property rights in the Software. The Software is licensed, not sold.
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 * @version $Id: connector_newsletter.php 6 2014-02-13 15:40:43Z SystemVCS $
 */
 
@@ -36,8 +36,8 @@ require_once(dirname(__FILE__).'/base_newsletter.php');
 * For now, this connector pipes through a lot functionality to base_newsletter
 * Verbose documentation for each of these method can be found there
 *
-* @package commercial
-* @subpackage newsletter
+* @package Papaya-Modules
+* @subpackage Newsletter
 */
 class connector_newsletter extends base_plugin {
 
