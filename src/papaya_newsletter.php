@@ -6873,6 +6873,22 @@ function processImport() {
   }
 
   /**
+   * Check whether an integer value is a valid timestamp
+   *
+   * @param mixed $timestamp The value to check for
+   * @return boolean TRUE if timestamp, FALSE otherwise
+   */
+  function is_timestamp($timestamp) {
+    $check = (is_int($timestamp) OR is_float($timestamp))
+      ? $timestamp
+      : (string)(int)$timestamp;
+
+    return ($check === $timestamp)
+    && ((int)$timestamp <= PHP_INT_MAX)
+    && ((int)$timestamp >= ~PHP_INT_MAX);
+  }
+
+  /**
   * save mailing group data
   *
   * @param integer $mailingGroupId
