@@ -1337,10 +1337,15 @@ class papaya_newsletter extends base_newsletter {
                      sr.subscriber_postalcode, sr.subscriber_city,
                      sr.subscriber_phone, sr.subscriber_mobile,
                      sr.subscriber_fax,
-                     sn.subscription_status, sn.subscription_format
-                FROM %s AS sn, %s AS sr
-               WHERE sn.newsletter_list_id = '%d'
-                 AND sn.subscriber_id = sr.subscriber_id
+                     sn.subscription_status, sn.subscription_format,
+                     sp.protocol_created, sp.protocol_confirmed
+                FROM %s AS sn
+               INNER JOIN %s AS sr
+                   ON sn.subscriber_id = sr.subscriber_id
+                 LEFT JOIN %s as sp
+                   ON sn.subscriber_id = sp.subscriber_id
+                  AND sp.protocol_action = 0
+                WHERE sn.newsletter_list_id = '%d'
             ORDER BY sr.subscriber_firstname, sr.subscriber_lastname,
                      sr.subscriber_email";
     } else {
@@ -1351,15 +1356,24 @@ class papaya_newsletter extends base_newsletter {
                      sr.subscriber_salutation,
                      sr.subscriber_firstname, sr.subscriber_lastname,
                      sn.subscription_status, sn.subscription_format
-                FROM %s AS sn, %s AS sr
+                FROM %s AS sn
+               INNER JOIN %s AS sr
+                  ON sn.subscriber_id = sr.subscriber_id
+                LEFT JOIN %s as sp
+                  ON sn.subscriber_id = sp.subscriber_id
+                 AND sp.protocol_action = 0
                WHERE sn.newsletter_list_id = '%d'
                  AND sn.subscriber_id = sr.subscriber_id
                  AND $filter
             ORDER BY sr.subscriber_firstname, sr.subscriber_lastname,
                      sr.subscriber_email";
     }
-    $params = array($this->tableSubscriptions, $this->tableSubscribers,
-      $newsletterListId);
+    $params = array(
+      $this->tableSubscriptions,
+      $this->tableSubscribers,
+      $this->tableProtocol,
+      $newsletterListId
+    );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $this->subscriptionsExport[$row['subscriber_id']] = $row;
