@@ -6764,18 +6764,34 @@ function processImport() {
   }
 
   /**
-  * Export subscription data to csv
-  *
-  * @param boolean $details = FALSE
-  * @access public
-  */
+   * Export subscription data to csv
+   *
+   * @param boolean $details optional, default FALSE
+   */
   function exportSubscriptionList($details = FALSE) {
+    $fileName = 'listdata_'.@(int)$this->params['newsletter_list_id'].
+      '_'.date('Y-m-d').'.csv';
+    $this->outputExportHeaders($fileName);
+    $csvArr = $this->generateCsv($details);
+    echo implode("\r\n", $csvArr);
+    flush();
+    exit;
+  }
+
+  /**
+   * Generate CSV export data
+   *
+   * @param boolean $details optional, default FALSE
+   * @return array
+   */
+  function generateCsv($details = FALSE) {
+    $dataExport = '';
+    $dataArray = array();
     $this->loadSubscriptionsListForExport(
       @(int)$this->params['newsletter_list_id'], $details);
     if (isset($this->subscriptionsExport) && is_array($this->subscriptionsExport)) {
       if ($details) {
-        $fileName = 'listdata_'.@(int)$this->params['newsletter_list_id'].
-          '_'.date('Y-m-d').'.csv';
+
         $fields = array(
           'subscriber_email' => $this->_gt('Email'),
           'subscription_format' => array($this->_gt('Format'), $this->formats),
@@ -6795,10 +6811,10 @@ function processImport() {
           'subscriber_phone' => $this->_gt('Phone'),
           'subscriber_mobile' => $this->_gt('Mobile'),
           'subscriber_fax' => $this->_gt('Fax'),
+          'protocol_created' => $this->_gt('created'),
+          'protocol_confirmed' => $this->_gt('confirmed'),
         );
       } else {
-        $fileName = 'list_'.@(int)$this->params['newsletter_list_id'].
-          '_'.date('Y-m-d').'.csv';
         $fields = array(
           'subscriber_email' => $this->_gt('Email'),
           'subscription_format' => array($this->_gt('Format'), $this->formats),
@@ -6807,41 +6823,52 @@ function processImport() {
           'subscriber_lastname' => $this->_gt('Last name'),
         );
       }
-      $this->outputExportHeaders($fileName);
+
       $first = TRUE;
+      $dataExport = '';
       foreach ($fields as $field => $data) {
         if ($first) {
           $first = FALSE;
         } else {
-          echo ',';
+          $dataExport .= ',';
         }
         if (is_array($data)) {
-          echo $this->escapeForCSV($data[0]);
+          $dataExport .= $this->escapeForCSV($data[0]);
         } else {
-          echo $this->escapeForCSV($data);
+          $dataExport .= $this->escapeForCSV($data);
         }
       }
-      echo "\r\n";
-      flush();
+      $dataArray[] = $dataExport;
 
+      $timestampFields = array();
+      if ($details) {
+        $timestampFields = array(18, 19);
+      }
       foreach ($this->subscriptionsExport as $subscription) {
         $first = TRUE;
+        $dataExport = '';
+        $count = 0;
         foreach ($fields as $field => $data) {
           if ($first) {
             $first = FALSE;
           } else {
-            echo ',';
+            $dataExport .= ',';
           }
           if (is_array($data)) {
-            echo $this->escapeForCSV($data[1][$subscription[$field]]);
+            $dataExport .= $this->escapeForCSV($data[1][$subscription[$field]]);
           } else {
-            echo $this->escapeForCSV($subscription[$field]);
+            if ($details && in_array($count, $timestampFields) &&
+              $this->is_timestamp((int)$subscription[$field]) && (int)$subscription[$field] > 0) {
+              $dataExport .= date("d.m.Y", $subscription[$field]);
+            } else {
+              $dataExport .= $this->escapeForCSV($subscription[$field]);
+            }
           }
+          $count++;
         }
-        echo "\r\n";
-        flush();
+        $dataArray[] = $dataExport;
       }
-      exit;
+      return $dataArray;
     }
   }
 
