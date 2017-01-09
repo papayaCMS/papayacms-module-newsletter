@@ -19,6 +19,7 @@
 /**
 * Newsletter - base functionality
 */
+require_once(dirname(__FILE__).'/export_xls.php');
 require_once(dirname(__FILE__).'/base_newsletter.php');
 require_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
@@ -308,6 +309,11 @@ class papaya_newsletter extends base_newsletter {
     case 'export_data':
       if ($this->module->hasPerm(7)) {
         $this->exportSubscriptionList(TRUE);
+      }
+      break;
+    case 'export_data_xls':
+      if ($this->module->hasPerm(7)) {
+        $this->exportSubscriptionListXls(TRUE);
       }
       break;
     case 'add_list':
@@ -3339,6 +3345,18 @@ class papaya_newsletter extends base_newsletter {
             $this->getLink(
               array(
                 'cmd' => 'export_data',
+                'newsletter_list_id' => $this->params['newsletter_list_id']
+              )
+            ),
+            'actions-save-to-disk',
+            '',
+            FALSE
+          );
+          $toolbar->addButton(
+            'Export data as XLS',
+            $this->getLink(
+              array(
+                'cmd' => 'export_data_xls',
                 'newsletter_list_id' => $this->params['newsletter_list_id']
               )
             ),
@@ -6728,6 +6746,21 @@ function processImport() {
   */
   function escapeForCSV($str) {
     return '"'.str_replace('"', '""', $str).'"';
+  }
+
+  /**
+   * Export subscription data to XLS
+   *
+   * @param boolean $details optional, default FALSE
+   */
+  function exportSubscriptionListXls($details = FALSE) {
+    $fileName = 'listdata_'.@(int)$this->params['newsletter_list_id'].
+      '_'.date('Y-m-d').'.xls';
+    $csv = $this->generateCsv($details);
+    $xls = new export_xls();
+    $xls->fromCsv($csv);
+    $xls->download($fileName);
+    exit();
   }
 
   /**
