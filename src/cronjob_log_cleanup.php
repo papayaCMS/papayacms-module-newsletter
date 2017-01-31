@@ -82,4 +82,19 @@ class cronjob_log_cleanup extends base_cronjob {
     }
     return $this->_logCleanup;
   }
+
+  /**
+   * Check execution parameters
+   *
+   * @return string|bool
+   */
+  public function checkExecParams() {
+    $this->setDefaultData();
+    $result = FALSE;
+    if ($this->data['age_days'] > 0 &&
+        in_array(['unsubscriptions', 'both'], $this->data['mode'])) {
+      $result = TRUE;
+    }
+    return $result;
+  }
 }
