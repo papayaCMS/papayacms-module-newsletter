@@ -92,8 +92,12 @@ class cronjob_log_cleanup extends base_cronjob {
     $this->setDefaultData();
     $result = FALSE;
     if ($this->data['age_days'] > 0 &&
-        in_array(['unsubscriptions', 'both'], $this->data['mode'])) {
-      $result = TRUE;
+        in_array($this->data['mode'], ['unsubscriptions', 'both'])) {
+      $result = sprintf(
+        'Will delete %s older than %d days.',
+        $this->data['mode'],
+        $this->data['age_days']
+      );
     }
     return $result;
   }
