@@ -35,7 +35,7 @@ class content_newsletter_import extends base_content {
   var $fullPage = FALSE;
   var $noIndex = FALSE;
 
-  function getParsedData() {
+  function getParsedData($parseParams = NULL) {
     $result = '';
     $result .= sprintf(
       '<title>%s</title>'.LF,

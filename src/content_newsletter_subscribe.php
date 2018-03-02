@@ -392,7 +392,7 @@ class content_newsletter extends base_content {
   * @access public
   * @return string
   */
-  function getParsedData() {
+  function getParsedData($parseParams = NULL) {
 
     $this->setDefaultData();
     $this->setDefaultData(NULL, FALSE, $this->editFieldsMessages);

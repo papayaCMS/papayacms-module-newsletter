@@ -225,7 +225,7 @@ class NewsletterUserProfile extends base_content {
   *
   * @return NewsletterUserProfileBase
   */
-  public function getPageBaseObject() {
+  public function getPageBaseObject($parseParams = NULL) {
     if (!is_object($this->pageBaseObject)) {
       include_once(dirname(__FILE__).'/UserProfile/Base.php');
       $this->pageBaseObject = new NewsletterUserProfileBase($this);

@@ -107,7 +107,7 @@ class content_newsletter_unsubscribe extends base_content {
   * @access public
   * @return string
   */
-  function getParsedData() {
+  function getParsedData($parseParams = NULL) {
     include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
     include_once(dirname(__FILE__).'/base_newsletter.php');
     $newsletterObject = new base_newsletter();
