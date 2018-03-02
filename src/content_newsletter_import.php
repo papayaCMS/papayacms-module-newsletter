@@ -100,7 +100,7 @@ class content_newsletter_import extends base_content {
   * @access public
   * @return string
   */
-  function getParsedTeaser() {
+  function getParsedTeaser($parseParams = NULL) {
     $result = '';
     $result .= sprintf(
       '<title>%s</title>'.LF,

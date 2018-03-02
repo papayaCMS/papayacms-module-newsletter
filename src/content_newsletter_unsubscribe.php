@@ -85,7 +85,7 @@ class content_newsletter_unsubscribe extends base_content {
   * @access public
   * @return string
   */
-  function getParsedTeaser() {
+  function getParsedTeaser($parseParams = NULL) {
     $result = sprintf(
       '<title>%s</title>'.LF,
       papaya_strings::escapeHTMLChars(@$this->data['title'])

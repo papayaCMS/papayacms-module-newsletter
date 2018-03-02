@@ -370,7 +370,7 @@ class content_newsletter extends base_content {
   * @access public
   * @return string
   */
-  function getParsedTeaser() {
+  function getParsedTeaser($parseParams = NULL) {
     $result = sprintf(
       '<title>%s</title>'.LF,
       papaya_strings::escapeHTMLchars(@$this->data['title'])
