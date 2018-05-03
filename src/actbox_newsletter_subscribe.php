@@ -191,13 +191,13 @@ class actbox_newsletter_subscribe extends base_actionbox {
 
     switch($contentMode) {
     case 3:
-      $this->editFields = &$this->editFieldsMessages;
+      $this->editFields = $this->editFieldsMessages;
       break;
     case 2:
-      $this->editFields = &$this->editFieldsDialog;
+      $this->editFields = $this->editFieldsDialog;
       break;
     case 1:
-      $this->editFields = &$this->editFieldsMail;
+      $this->editFields = $this->editFieldsMail;
       break;
     }
     $this->setSessionValue($this->sessionParamName, $this->sessionParams);
@@ -225,7 +225,7 @@ class actbox_newsletter_subscribe extends base_actionbox {
     $contentMode = empty($this->params['contentmode']) ? 0 : (int)$this->params['contentmode'];
     include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
-    $toolbar->images = &$GLOBALS['PAPAYA_IMAGES'];
+    $toolbar->images = $GLOBALS['PAPAYA_IMAGES'];
     $toolbar->addButton(
       'General',
       $this->getLink(array('contentmode' => 0)),
@@ -314,7 +314,7 @@ class actbox_newsletter_subscribe extends base_actionbox {
       $newsletterObj = base_pluginloader::getPluginInstance(
         'bfde211a18056caca770c17f8eb4ceea', $this
       );
-      $this->newsletterObject = &$newsletterObj->baseNewsletter;
+      $this->newsletterObject = $newsletterObj->baseNewsletter;
       $this->newsletterObject->module = $this;
       $this->newsletterObject->loadNewsletterLists();
     }
@@ -386,7 +386,7 @@ class actbox_newsletter_subscribe extends base_actionbox {
     $newsletterObj = base_pluginloader::getPluginInstance(
       'bfde211a18056caca770c17f8eb4ceea', $this
     );
-    $this->newsletterObject = &$newsletterObj->baseNewsletter;
+    $this->newsletterObject = $newsletterObj->baseNewsletter;
     $this->newsletterObject->module = $this;
 
     $showForm = TRUE;

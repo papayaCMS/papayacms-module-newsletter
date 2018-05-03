@@ -237,13 +237,13 @@ class content_newsletter extends base_content {
 
     switch(@$this->params['contentmode']) {
     case 3:
-      $this->editFields = &$this->editFieldsMessages;
+      $this->editFields = $this->editFieldsMessages;
       break;
     case 2:
-      $this->editFields = &$this->editFieldsDialog;
+      $this->editFields = $this->editFieldsDialog;
       break;
     case 1:
-      $this->editFields = &$this->editFieldsMail;
+      $this->editFields = $this->editFieldsMail;
       break;
     }
     $this->setSessionValue($this->sessionParamName, $this->sessionParams);

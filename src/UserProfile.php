@@ -19,7 +19,7 @@
 /**
 * Basic class page module
 */
-require_once(PAPAYA_INCLUDE_PATH.'system/base_content.php');
+require_once PAPAYA_INCLUDE_PATH.'system/base_content.php';
 
 /**
 * Newsletter user profile page module.
@@ -207,7 +207,7 @@ class NewsletterUserProfile extends base_content {
   * Instance of page base object object.
   * @var NewsletterUserProfileBase
   */
-  protected $pageBaseObject = NULL;
+  protected $pageBaseObject;
 
   /**
   * Set page base object.
@@ -221,13 +221,13 @@ class NewsletterUserProfile extends base_content {
   }
 
   /**
-  * Get page base object.
-  *
-  * @return NewsletterUserProfileBase
-  */
-  public function getPageBaseObject($parseParams = NULL) {
+   * Get page base object.
+   *
+   * @return NewsletterUserProfileBase
+   */
+  public function getPageBaseObject() {
     if (!is_object($this->pageBaseObject)) {
-      include_once(dirname(__FILE__).'/UserProfile/Base.php');
+      include_once __DIR__.'/UserProfile/Base.php';
       $this->pageBaseObject = new NewsletterUserProfileBase($this);
       $this->pageBaseObject->setPageParamName($this->paramName);
       $this->pageBaseObject->setPageParams($this->params);
@@ -238,11 +238,12 @@ class NewsletterUserProfile extends base_content {
   }
 
   /**
-  * Return page XML
-  *
-  * @return string
-  */
-  public function getParsedData() {
+   * Return page XML
+   *
+   * @param null|array $parseParams
+   * @return string
+   */
+  public function getParsedData($parseParams = NULL) {
     $this->setDefaultData();
     return $this->getPageBaseObject()->getXml();
   }

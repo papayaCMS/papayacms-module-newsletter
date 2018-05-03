@@ -754,12 +754,12 @@ class newsletterUserProfileOwnerProxy extends NewsletterUserProfile {
   }
 
   public function getWebLink(
-           $pageId = 0, $lng = NULL, $mode = NULL, $params = NULL, $paramName = NULL
-         ) {
+     $pageId = 0, $lng = NULL, $mode = NULL, $params = NULL, $paramName = NULL, $text = '', $categId = NULL
+   ) {
     return sprintf('index.%d', $pageId);
   }
 
-  public function getAbsoluteURL($url, $text = '', $sid = TRUE) {
+  public function getAbsoluteURL($url, $text = '', $sid = TRUE, $protocol = NULL) {
     return $url;
   }
 }
@@ -836,11 +836,15 @@ class newsletterUserProfileNewsletterBaseClassProxy extends base_newsletter {
     return 1;
   }
 
-  public function addSubscription($subscriberId, $newsletterListIds, $status) {
+  public function addSubscription(
+    $subscriberId, $newsletterListIds, $status = self::STATUS_DATAONLY, $format = self::FORMAT_TEXT
+  ) {
     return TRUE;
   }
 
-  public function saveSubscription($subscriberId, $newsletterListId, $status, $format) {
+  public function saveSubscription(
+    $subscriberId, $newsletterListId, $status = self::STATUS_DATAONLY, $format = self::FORMAT_TEXT
+  ) {
     return TRUE;
   }
 }
