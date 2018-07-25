@@ -7176,7 +7176,7 @@ function processImport() {
   * @return string
   */
   function getLanguageShort($languageId) {
-    $this->lngSelect = &base_language_select::getInstance();
+    $this->lngSelect = base_language_select::getInstance();
     return (!empty($this->lngSelect->languages[$languageId]['lng_short'])) ?
       $this->lngSelect->languages[$languageId]['lng_short'] :
       '';

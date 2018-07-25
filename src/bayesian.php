@@ -82,7 +82,7 @@ class bayesian extends base_object {
   }
 
   function initializeFilter() {
-    $this->bdb = &bayesian_db::getInstance();
+    $this->bdb = bayesian_db::getInstance();
   }
 
   function _getHashes($tokens) {
