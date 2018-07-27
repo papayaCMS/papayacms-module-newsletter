@@ -204,14 +204,16 @@ class actbox_newsletter_subscribe extends base_actionbox {
   }
 
   /**
-  * Get form
-  *
-  * @access public
-  * @return string $result
-  */
-  function getForm() {
+   * Get form
+   *
+   * @access public
+   * @param string $dialogTitlePrefix
+   * @param string $dialogIcon
+   * @return string $result
+   */
+  function getForm($dialogTitlePrefix = '', $dialogIcon = '') {
     $result = $this->getContentToolbar();
-    $result .= parent::getForm();
+    $result .= parent::getForm($dialogTitlePrefix, $dialogIcon);
     return $result;
   }
 
