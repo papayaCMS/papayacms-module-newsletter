@@ -323,7 +323,7 @@ class PapayaModuleNewsletterFeedConfiguration extends PapayaUiControlInteractive
   protected function _prepareDialog() {
     if (is_null($this->_dialog)) {
       $editFields = array(
-        'url' => array('Url', 'isHTTPX', FALSE, 'input', 2048, '', ''),
+        'url' => array('Url', 'isHTTPX', TRUE, 'input', 2048, '', ''),
         'Limits',
         'minimum' => array('Minimum entries', 'isNum', TRUE, 'input', 3, '', 1),
         'maximum' => array('Maximum entries', 'isNum', TRUE, 'input', 3, '', 5),
