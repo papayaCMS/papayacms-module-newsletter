@@ -1091,12 +1091,11 @@ class papaya_newsletter extends base_newsletter {
   * @access public
   */
   function loadLanguages() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_language_select.php');
-    $this->lngSelect = base_language_select::getInstance();
-    unset($this->languages);
     $this->languages = array();
-    foreach ($this->lngSelect->languages as $id => $lng) {
-      $this->languages[$id] = $lng['lng_title'];
+    foreach ($this->papaya()->languages as $id => $language) {
+      if ($language['is_content']) {
+        $this->languages[$id] = $language['title'];
+      }
     }
   }
 
