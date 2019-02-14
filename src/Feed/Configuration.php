@@ -240,7 +240,7 @@ class PapayaModuleNewsletterFeedConfiguration extends PapayaUiControlInteractive
       'listitem',
       array(
         'title' => $feed['url'],
-        'image' => $this->getApplication()->images['items-link'],
+        'image' => $this->papaya()->images['items-link'],
         'href' => PapayaUiReference::create()->setParameters(
           array(
             'mailinggroup_id' => $this->_newsletterId,
@@ -264,7 +264,7 @@ class PapayaModuleNewsletterFeedConfiguration extends PapayaUiControlInteractive
         'glyph',
         array(
           'hint' => new PapayaUiStringTranslated('Move up'),
-          'src' => $this->getApplication()->images['actions-go-up'],
+          'src' => $this->papaya()->images['actions-go-up'],
           'href' => PapayaUiReference::create()->setParameters(
             array(
               'mailinggroup_id' => $this->_newsletterId,
@@ -287,7 +287,7 @@ class PapayaModuleNewsletterFeedConfiguration extends PapayaUiControlInteractive
         'glyph',
         array(
           'hint' => new PapayaUiStringTranslated('Move down'),
-          'src' => $this->getApplication()->images['actions-go-down'],
+          'src' => $this->papaya()->images['actions-go-down'],
           'href' => PapayaUiReference::create()->setParameters(
             array(
               'mailinggroup_id' => $this->_newsletterId,
@@ -323,7 +323,7 @@ class PapayaModuleNewsletterFeedConfiguration extends PapayaUiControlInteractive
   protected function _prepareDialog() {
     if (is_null($this->_dialog)) {
       $editFields = array(
-        'url' => array('Url', 'isHTTPX', TRUE, 'input', 2048, '', ''),
+        'url' => array('Url', 'isHTTPX', FALSE, 'input', 2048, '', ''),
         'Limits',
         'minimum' => array('Minimum entries', 'isNum', TRUE, 'input', 3, '', 1),
         'maximum' => array('Maximum entries', 'isNum', TRUE, 'input', 3, '', 5),

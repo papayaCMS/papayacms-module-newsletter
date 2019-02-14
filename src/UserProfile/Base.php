@@ -464,7 +464,7 @@ class NewsletterUserProfileBase {
   */
   public function getXml() {
     $result = $this->getTitlesAndTextXml();
-    $surfer = $this->owner->getApplication()->surfer;
+    $surfer = $this->owner->papaya()->surfer;
     if ($surfer->isValid) {
       $newsletterObject = $this->getNewsletterObject();
       $newsletterObject->loadNewsletterLists();

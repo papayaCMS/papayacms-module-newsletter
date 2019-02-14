@@ -581,7 +581,7 @@ class actbox_newsletter_subscribe extends base_actionbox {
 
   function getURLParams($paramNames) {
     $result = array();
-    $request = $this->getApplication()->getObject('Request');
+    $request = $this->papaya()->getObject('Request');
     if (isset($paramNames) && is_array($paramNames) && count($paramNames) > 0) {
       foreach ($paramNames as $paramName) {
         $result[$paramName] = $request->getParameter($paramName);
