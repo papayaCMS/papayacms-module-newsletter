@@ -255,9 +255,9 @@ class content_newsletter extends base_content {
   * @access public
   * @return string $result
   */
-  function getForm() {
+  function getForm($dialogTitlePrefix = '', $dialogIcon = '') {
     $result = $this->getContentToolbar();
-    $result .= parent::getForm();
+    $result .= parent::getForm($dialogTitlePrefix, $dialogIcon);
     return $result;
   }
 
