@@ -25,6 +25,7 @@
 class cronjob_log_cleanup extends base_cronjob {
   /**
    * Configuration edit fields
+   *
    * @var array
    */
   public $editFields = [
@@ -37,19 +38,39 @@ class cronjob_log_cleanup extends base_cronjob {
       'The cronjob will remove entries older than the designated number of days.',
       30
     ],
+    'Cleanup',
     'mode' => [
-      'Mode',
+      'Unconfirmed Requests',
       '(^(unsubscriptions|both)$)',
       TRUE,
       'radio',
-      ['unsubscriptions' => 'Only unsubscriptions', 'both' => 'Subscriptions and unsubscriptions'],
-      'Only remove unconfirmed unsubscriptions, or both subscriptions and unsubscriptions?',
+      ['unsubscriptions' => 'Only unsubscribe requests', 'both' => 'Subscribe and unsubscribe requests'],
+      'Only remove unconfirmed unsubscribe requests, or both?',
       'unsubscriptions'
-    ]
+    ],
+    'cleanup_subscriptions' => [
+      'Subscriptions',
+      'isNum',
+      TRUE,
+      'yesno',
+      NULL,
+      'Cleanup unconfirmed subscriptions without protocol entries',
+      '0'
+    ],
+    'cleanup_subscribers' => [
+      'Subscribers',
+      'isNum',
+      TRUE,
+      'yesno',
+      NULL,
+      'Cleanup subscribers without subscriptions',
+      '0'
+    ],
   ];
 
   /**
    * Log Cleanup object
+   *
    * @var LogCleanup
    */
   private $_logCleanup = NULL;
@@ -60,11 +81,48 @@ class cronjob_log_cleanup extends base_cronjob {
    * @return mixed integer 0 on success, otherwise string error message
    */
   public function execute() {
-    $this->setDefaultData();
-    if ($this->logCleanup()->cleanup($this->data['age_days'], $this->data['mode'])) {
-      return 0;
-    }
-    return "Newsletter log cleanup failed.";
+    $sandbox = new Papaya\Message\Sandbox(
+      function () {
+        $this->setDefaultData();
+        try {
+          $this->notify(
+            'Cleanup unconfirmed requests: %s and older %d days',
+            $this->data['mode'],
+            $this->data['age_days']
+          );
+          if (FALSE !== ($deleted = $this->logCleanup()->cleanupLog($this->data['age_days'], $this->data['mode']))) {
+            $this->notify('Deleted %d unconfirmed requests.', $deleted === TRUE ? 0 : $deleted);
+          } else {
+            return "Newsletter cleanup failed at protocol step.";
+          }
+          if ($this->data['cleanup_subscriptions']) {
+            $this->notify('Cleanup subscriptions');
+            if (FALSE !== ($deleted = $this->logCleanup()->cleanupSubscriptions())) {
+              $this->notify('Deleted %d unconfirmed subscriptions.', $deleted === TRUE ? 0 : $deleted);
+            } else {
+              return "Newsletter cleanup failed at subscriptions step.";
+            }
+          }
+          if ($this->data['cleanup_subscribers']) {
+            $this->notify('Cleanup subscribers');
+            if (FALSE !== ($deleted = $this->logCleanup()->cleanupSubscribers())) {
+              $this->notify('Deleted %d subscribers.', $deleted === TRUE ? 0 : $deleted);
+            } else {
+              return "Newsletter cleanup failed at subscribers step.";
+            }
+          }
+        } catch (Exception $e) {
+          return $e->getMessage();
+        }
+        return 0;
+      }
+    );
+    $sandbox->papaya($this->papaya());
+    return $sandbox();
+  }
+
+  public function notify($message, ...$parameters) {
+    echo(count($parameters) > 0 ? vsprintf($message, $parameters) : $message), "\n";
   }
 
   /**
@@ -90,15 +148,23 @@ class cronjob_log_cleanup extends base_cronjob {
    */
   public function checkExecParams() {
     $this->setDefaultData();
-    $result = FALSE;
-    if ($this->data['age_days'] > 0 &&
-        in_array($this->data['mode'], ['unsubscriptions', 'both'])) {
-      $result = sprintf(
-        'Will delete %s older than %d days.',
+    $result = [];
+    if (
+      $this->data['age_days'] > 0 &&
+      in_array($this->data['mode'], ['unsubscriptions', 'both'])
+    ) {
+      $result[] = sprintf(
+        'Delete %s older than %d days.',
         $this->data['mode'],
         $this->data['age_days']
       );
     }
-    return $result;
+    if ($this->data['cleanup_subscriptions']) {
+      $result[] = "Delete unconfirmed subscriptions without subscribe request.";
+    }
+    if ($this->data['cleanup_subscribers']) {
+      $result[] = "Delete subscribers without subscriptions.";
+    }
+    return $result ? join("\n", $result) : FALSE;
   }
 }
