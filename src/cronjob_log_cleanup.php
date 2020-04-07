@@ -91,6 +91,13 @@ class cronjob_log_cleanup extends base_cronjob {
             $this->data['age_days']
           );
           if (FALSE !== ($deleted = $this->logCleanup()->cleanupLog($this->data['age_days'], $this->data['mode']))) {
+            $this->log(
+                \Papaya\Message\Logable::SEVERITY_INFO,
+                'Newsletter: Cleanup unconfirmed requests (%s and older %d days), deleted %d.',
+                $this->data['mode'],
+                $this->data['age_days'],
+                $deleted === TRUE ? 0 : $deleted
+            );
             $this->notify('Deleted %d unconfirmed requests.', $deleted === TRUE ? 0 : $deleted);
           } else {
             return "Newsletter cleanup failed at protocol step.";
@@ -98,6 +105,11 @@ class cronjob_log_cleanup extends base_cronjob {
           if ($this->data['cleanup_subscriptions']) {
             $this->notify('Cleanup subscriptions');
             if (FALSE !== ($deleted = $this->logCleanup()->cleanupSubscriptions())) {
+              $this->log(
+                \Papaya\Message\Logable::SEVERITY_INFO,
+                'Newsletter: Cleanup subscriptions, deleted %d.',
+                $deleted === TRUE ? 0 : $deleted
+              );
               $this->notify('Deleted %d unconfirmed subscriptions.', $deleted === TRUE ? 0 : $deleted);
             } else {
               return "Newsletter cleanup failed at subscriptions step.";
@@ -106,6 +118,11 @@ class cronjob_log_cleanup extends base_cronjob {
           if ($this->data['cleanup_subscribers']) {
             $this->notify('Cleanup subscribers');
             if (FALSE !== ($deleted = $this->logCleanup()->cleanupSubscribers())) {
+              $this->log(
+                \Papaya\Message\Logable::SEVERITY_INFO,
+                'Newsletter: Cleanup subscribers, deleted %d.',
+                $deleted === TRUE ? 0 : $deleted
+              );
               $this->notify('Deleted %d subscribers.', $deleted === TRUE ? 0 : $deleted);
             } else {
               return "Newsletter cleanup failed at subscribers step.";
@@ -121,8 +138,16 @@ class cronjob_log_cleanup extends base_cronjob {
     return $sandbox();
   }
 
+  public function log($severity, $message, ...$parameters) {
+    $this->papaya()->messages->log(
+      $severity,
+      Papaya\Message\Logable::GROUP_CRONJOBS,
+      count($parameters) > 0 ? vsprintf($message, $parameters) : $message
+    );
+  }
+
   public function notify($message, ...$parameters) {
-    echo(count($parameters) > 0 ? vsprintf($message, $parameters) : $message), "\n";
+    echo (count($parameters) > 0 ? vsprintf($message, $parameters) : $message), "\n";
   }
 
   /**
