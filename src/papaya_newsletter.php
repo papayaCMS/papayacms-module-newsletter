@@ -6549,8 +6549,7 @@ function processImport() {
   */
   function filterSurfers() {
     // Get surfers connector instance
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
-    $surfersObj = base_pluginloader::getPluginInstance('06648c9c955e1a0e06a7bd381748c4e4', $this);
+    $surfersObj = $this->papaya()->plugins->get('06648c9c955e1a0e06a7bd381748c4e4', $this);
     // Get the filter form
     $hidden = array(
       'cmd' => 'filter_results',
@@ -6570,9 +6569,7 @@ function processImport() {
   * @author Sascha Kersken <info@papaya-cms.com>
   */
   function showFilterSurfersResults() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
-    $surfersObj = base_pluginloader::getPluginInstance('06648c9c955e1a0e06a7bd381748c4e4', $this);
+    $surfersObj = $this->papaya()->plugins->get('06648c9c955e1a0e06a7bd381748c4e4', $this);
     $surferIds = $surfersObj->showSurferResults($this->layout, $this->params, TRUE);
     if (!$surferIds) {
       // If there are no results, show a message
@@ -6609,8 +6606,7 @@ function processImport() {
   * @author Sascha Kersken <info@papaya-cms.com>
   */
   function addSurfersToList() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
-    $surfersObj = base_pluginloader::getPluginInstance('06648c9c955e1a0e06a7bd381748c4e4', $this);
+    $surfersObj = $this->papaya()->plugins->get('06648c9c955e1a0e06a7bd381748c4e4', $this);
     // Check parameters
     $error = FALSE;
     if (!isset($this->params['import_newsletter_list_id']) ||
@@ -8373,7 +8369,7 @@ function processImport() {
   */
   public function parseFeedXML($xml, $xslFileName, $xsltObject) {
     // save it as editable copy/content, filter GUID 20e80c718e5991d59e938bcdf4e020f2
-    $filterObj = base_pluginloader::getPluginInstance('20e80c718e5991d59e938bcdf4e020f2', $this);
+    $filterObj = $this->papaya()->plugins->get('20e80c718e5991d59e938bcdf4e020f2', $this);
     $filterObj->data['xslfile'] = $xslFileName;
     include_once(PAPAYA_INCLUDE_PATH.'system/base_module_options.php');
     $filterObj->templatePath = base_module_options::readOption(

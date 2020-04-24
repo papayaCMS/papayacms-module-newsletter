@@ -311,9 +311,8 @@ class actbox_newsletter_subscribe extends base_actionbox {
 
   function initializeNewsletterObject() {
     if (!isset($this->newsletterObject) || !is_object($this->newsletterObject)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
       // instance of connector_newsletter
-      $newsletterObj = base_pluginloader::getPluginInstance(
+      $newsletterObj = $this->papaya()->plugins->get(
         'bfde211a18056caca770c17f8eb4ceea', $this
       );
       $this->newsletterObject = $newsletterObj->baseNewsletter;
@@ -383,9 +382,8 @@ class actbox_newsletter_subscribe extends base_actionbox {
       )
     );
 
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
     // instance of connector_newsletter
-    $newsletterObj = base_pluginloader::getPluginInstance(
+    $newsletterObj = $this->papaya()->plugins->get(
       'bfde211a18056caca770c17f8eb4ceea', $this
     );
     $this->newsletterObject = $newsletterObj->baseNewsletter;

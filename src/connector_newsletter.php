@@ -30,8 +30,7 @@ require_once(dirname(__FILE__).'/base_newsletter.php');
 * Newsletter connector class
 *
 * Usage:
-* include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
-* $surfersObj = base_pluginloader::getPluginInstance('bfde211a18056caca770c17f8eb4ceea', $this);
+* $newsletters = $this->papaya()->plugins->get('bfde211a18056caca770c17f8eb4ceea', $this);
 *
 * For now, this connector pipes through a lot functionality to base_newsletter
 * Verbose documentation for each of these method can be found there
@@ -191,8 +190,7 @@ class connector_newsletter extends base_plugin {
   * @param integer $surferId
   */
   function onDeleteSurfer($surferId) {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
-    $surfersConnector = base_pluginloader::getPluginInstance(
+    $surfersConnector = $this->papaya()->plugins->get(
       '06648c9c955e1a0e06a7bd381748c4e4',
       $this
     );
@@ -210,8 +208,7 @@ class connector_newsletter extends base_plugin {
   */
   function onSetSurferValid($data) {
     if (isset($data['valid']) && $data['valid'] == 4) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_pluginloader.php');
-      $surfersConnector = base_pluginloader::getPluginInstance(
+      $surfersConnector = $this->papaya()->plugins->get(
         '06648c9c955e1a0e06a7bd381748c4e4',
         $this
       );
