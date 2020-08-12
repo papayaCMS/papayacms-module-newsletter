@@ -31,6 +31,8 @@ class content_newsletter_unsubscribe extends base_content {
 
   var $paramName = 'nws';
 
+  var $cacheable = false;
+
   /**
   * Content edit fields
   * @var array $editFields
@@ -76,7 +78,11 @@ class content_newsletter_unsubscribe extends base_content {
     'email_exists' => array('Email not found', 'isNoHTML', TRUE, 'input', 200, '',
       'Email not found'),
     'no_newsletters' => array('No subscribed newsletters', 'isNoHTML', TRUE, 'input',
-      200, '', 'You have not subscribed any newsletter currently.')
+      200, '', 'You have not subscribed any newsletter currently.'),
+    'no_newsletters_selected' => array('No newsletters selected', 'isNoHTML', TRUE, 'input',
+      200, '', 'You need to select the newsletter you would like to unsubscribe.'),
+    'unregister_failed' => array('Deregistration failed', 'isNoHTML', TRUE,
+      'input', 200, '', 'Deregistration failed. Please contact us.'),
   );
 
   /**
@@ -108,6 +114,7 @@ class content_newsletter_unsubscribe extends base_content {
   * @return string
   */
   function getParsedData($parseParams = NULL) {
+    $this->setDefaultData();
     include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
     include_once(dirname(__FILE__).'/base_newsletter.php');
     $newsletterObject = new base_newsletter();
@@ -128,113 +135,167 @@ class content_newsletter_unsubscribe extends base_content {
     if (isset($this->params['cmd']) &&
         $this->params['cmd'] == 'unsubscribe' &&
         isset($this->params['email'])) {
-      if (trim($this->params['email']) != '' &&
-          $newsletterObject->loadSubscriber(
-            $newsletterObject->subscriberExists($this->params['email'])
-          )
-         ) {
-        $token = $newsletterObject->getActionToken();
-        $time = time();
-        $replValues = $newsletterObject->subscriber;
-        $params = array(
-                  'token' => $token,
-                  'time' => $time,
-                  );
-        $replValues['unsubscribe_link'] = $this->getAbsoluteURL(
-          $this->getWebLink(NULL, NULL, NULL, $params)
-        );
-        $replValues['LINK'] = $this->getAbsoluteURL($this->getWebLink(NULL, NULL, NULL, $params));
-        include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
-        $email = new email();
-        $email->setSender($this->data['mail_from'], $this->data['addresser_name']);
-        $email->addAddress(
-          $newsletterObject->subscriber['subscriber_email'],
-          $newsletterObject->subscriber['subscriber_firstname'].' '.
-          $newsletterObject->subscriber['subscriber_lastname']
-        );
-        $email->setSubject($this->data['mail_subject'], $replValues);
-        $email->setBody($this->data['mail_message'], $replValues);
-        if ($email->send()) {
-          $newsletterObject->setSubscriberToken(
-            $newsletterObject->subscriber['subscriber_id'], $token, $time
+      if (
+        trim($this->params['email']) != '' &&
+        $newsletterObject->loadSubscriber(
+          $newsletterObject->subscriberExists($this->params['email'])
+        )
+      ) {
+        $newsletterObject->loadSubscriptionDetails($newsletterObject->subscriber['subscriber_id']);
+        if (
+          isset($newsletterObject->subscriptionDetail) &&
+          is_array($newsletterObject->subscriptionDetail)&&
+          count($newsletterObject->subscriptionDetail) > 0
+        ) {
+          $token = $newsletterObject->getActionToken();
+          $time = time();
+          $replValues = $newsletterObject->subscriber;
+          $params = [
+            'token' => $token,
+            'time' => $time,
+          ];
+          $replValues['unsubscribe_link'] = $this->getAbsoluteURL(
+            $this->getWebLink(NULL, NULL, NULL, $params)
           );
-          $result .= '<message type="success">'.
-            papaya_strings::escapeHTMLChars(@$this->data['unregister_email_sent']).'</message>';
+          $replValues['LINK'] = $this->getAbsoluteURL($this->getWebLink(NULL, NULL, NULL, $params));
+          include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
+          $email = new email();
+          $email->setSender($this->data['mail_from'], $this->data['addresser_name']);
+          $email->addAddress(
+            $newsletterObject->subscriber['subscriber_email'],
+            $newsletterObject->subscriber['subscriber_firstname'].' '.
+            $newsletterObject->subscriber['subscriber_lastname']
+          );
+          $email->setSubject($this->data['mail_subject'], $replValues);
+          $email->setBody($this->data['mail_message'], $replValues);
+          if ($email->send()) {
+            $newsletterObject->setSubscriberToken(
+              $newsletterObject->subscriber['subscriber_id'], $token, $time
+            );
+            $result .= '<message type="success">'.
+              papaya_strings::escapeHTMLChars(@$this->data['unregister_email_sent']).'</message>';
+          } else {
+            $result .= '<message type="error">'.
+              papaya_strings::escapeHTMLChars(@$this->data['unregister_email_failed']).'</message>';
+          }
         } else {
           $result .= '<message type="error">'.
-            papaya_strings::escapeHTMLChars(@$this->data['unregister_email_failed']).'</message>';
+            papaya_strings::escapeHTMLChars(@$this->data['no_newsletters']).'</message>';
         }
       } else {
         $result .= '<message type="error">'.
           papaya_strings::escapeHTMLChars(@$this->data['email_exists']).'</message>';
       }
       //do unsubscription
-    } elseif (isset($this->params['cmd']) && $this->params['cmd'] == 'confirm') {
-      $error = FALSE;
-      foreach ($this->params as $key => $param) {
-        if ($key != 'cmd' && $key != 'subscriber_id') {
-          if ($newsletterObject->saveSubscription($this->params['subscriber_id'], $param, 4)) {
-            $newsletterObject->addProtocolEntry(
-              $this->params['subscriber_id'], $param, 1, NULL, time()
-            );
-          } else {
-            $error = TRUE;
-          }
-        }
-      }
-      if (!$error) {
-        $result .= '<message type="success">'.
-          papaya_strings::escapeHTMLChars(@$this->data['unregister_confirmed']).'</message>';
-      } else {
-        $result .= '<message type="error">'.
-          papaya_strings::escapeHTMLChars(@$this->data['no_newsletters']).'</message>';
-      }
-      //get unsubscription confirmation page
-    } elseif (isset($_GET['token']) &&
-              trim($_GET['token'] != '') &&
-              isset($_GET['time']) &&
-              trim($_GET['time'] != '')) {
+    } elseif (
+      $tokenParameters = $this->getTokenParameters()
+    ) {
       $result .= sprintf(
         "<text>%s</text>",
         $this->getXHTMLString(@$this->data['newsletter_list_text'], !((bool)@$this->data['nl2br']))
       );
-      $newsletterObject->loadSubscriberByTokenAndTime($_GET['token'], $_GET['time']);
+      $newsletterObject->loadSubscriberByTokenAndTime($tokenParameters['token'], $tokenParameters['time']);
       $newsletterObject->loadSubscriptionDetails($newsletterObject->subscriber['subscriber_id']);
-      $result .= sprintf(
-        '<dialog action="%s">'.LF,
-        papaya_strings::escapeHTMLChars($this->baseLink)
-      );
-      $result .= sprintf(
-        '<input type="hidden" name="%s[cmd]" value="confirm"/>'.LF,
-        papaya_strings::escapeHTMLChars($this->paramName)
-      );
-      $result .= sprintf(
-        '<input type="hidden" name="%s[subscriber_id]" value="%d"/>'.LF,
-        papaya_strings::escapeHTMLChars($this->paramName),
-        (int)$newsletterObject->subscriber['subscriber_id']
-      );
-      $result .= '<lines>'.LF;
-      if (is_array($newsletterObject->subscriptionDetail)) {
-        foreach ($newsletterObject->subscriptionDetail as $newsletter) {
+      if (
+        $newsletterObject->subscriber &&
+        is_array($newsletterObject->subscriptionDetail) &&
+        count($newsletterObject->subscriptionDetail) > 0
+      ) {
+        if (
+          isset($this->params['cmd']) &&
+          $this->params['cmd'] == 'confirm' &&
+          isset($this->params['newsletter_list_id'])  &&
+          is_array($this->params['newsletter_list_id'])  &&
+          count($this->params['newsletter_list_id']) > 0
+        ) {
+          $error = FALSE;
+          $newsletterObject->loadSubscriberByTokenAndTime($tokenParameters['token'], $tokenParameters['time']);
+          $newsletterObject->loadSubscriptionDetails($newsletterObject->subscriber['subscriber_id']);
+          if (
+            isset($newsletterObject->subscriptionDetail) &&
+            is_array($newsletterObject->subscriptionDetail)&&
+            count($newsletterObject->subscriptionDetail) > 0
+          ) {
+            $count = 0;
+            foreach ($newsletterObject->subscriptionDetail as $subscription) {
+              if (
+                isset($this->params['newsletter_list_id'][$subscription['newsletter_list_id']])
+              ) {
+                if ($newsletterObject->saveSubscription($this->params['subscriber_id'], $subscription['newsletter_list_id'], 4)) {
+                  $count++;
+                  $newsletterObject->addProtocolEntry(
+                    $this->params['subscriber_id'], $subscription['newsletter_id'], 1, NULL, time()
+                  );
+                }
+              }
+            }
+          } else {
+            $result .= '<message type="error">'.
+              papaya_strings::escapeHTMLChars(@$this->data['no_newsletters']).'</message>';
+          }
+          if ($count > 0) {
+            $result .= '<message type="success">'.
+              papaya_strings::escapeHTMLChars(@$this->data['unregister_confirmed']).'</message>';
+          } else {
+            $result .= '<message type="success">'.
+              papaya_strings::escapeHTMLChars(@$this->data['unregister_failed']).'</message>';
+          }
+          //get unsubscription confirmation page
+        } else {
+          if ($this->params['cmd'] == 'confirm') {
+            $result .= '<message type="error">'.
+              papaya_strings::escapeHTMLChars(@$this->data['no_newsletters_selected']).'</message>';
+          }
           $result .= sprintf(
-            '<line caption="%s" fid="newsletter_list_id">'.LF,
-            papaya_strings::escapeHTMLChars($newsletter['newsletter_list_name'])
-          );
-          $name = sprintf(
-            '%s[newsletter_list_id[%d]]', $this->paramName, $newsletter['newsletter_list_id']
+            '<dialog action="%s" method="post">'.LF,
+            papaya_strings::escapeHTMLChars($this->baseLink)
           );
           $result .= sprintf(
-            '<input type="checkbox" name="%s" value="%d">%s</input>'.LF,
-            papaya_strings::escapeHTMLChars($name),
-            (int)$newsletter['newsletter_list_id'],
-            papaya_strings::escapeHTMLChars($newsletter['newsletter_list_name'])
+            '<input type="hidden" name="%s[cmd]" value="confirm"/>'.LF,
+            papaya_strings::escapeHTMLChars($this->paramName)
           );
-          $result .= '</line>'.LF;
+          $result .= sprintf(
+            '<input type="hidden" name="%s[subscriber_id]" value="%d"/>'.LF,
+            papaya_strings::escapeHTMLChars($this->paramName),
+            (int)$newsletterObject->subscriber['subscriber_id']
+          );
+          $result .= sprintf(
+            '<input type="hidden" name="%s[token]" value="%s"/>'.LF,
+            papaya_strings::escapeHTMLChars($this->paramName),
+            papaya_strings::escapeHTMLChars($tokenParameters['token'])
+          );
+          $result .= sprintf(
+            '<input type="hidden" name="%s[time]" value="%d"/>'.LF,
+            papaya_strings::escapeHTMLChars($this->paramName),
+            papaya_strings::escapeHTMLChars($tokenParameters['time'])
+          );
+          $result .= '<lines>'.LF;
+          if (is_array($newsletterObject->subscriptionDetail)) {
+            foreach ($newsletterObject->subscriptionDetail as $newsletter) {
+              $result .= sprintf(
+                '<line caption="%s" fid="newsletter_list_id">'.LF,
+                papaya_strings::escapeHTMLChars($newsletter['newsletter_list_name'])
+              );
+              $name = sprintf(
+                '%s[newsletter_list_id][%d]', $this->paramName, $newsletter['newsletter_list_id']
+              );
+              $result .= sprintf(
+                '<input type="checkbox" name="%s" value="%d">%s</input>'.LF,
+                papaya_strings::escapeHTMLChars($name),
+                (int)$newsletter['newsletter_list_id'],
+                papaya_strings::escapeHTMLChars($newsletter['newsletter_list_name'])
+              );
+              $result .= '</line>'.LF;
+            }
+          }
+          $result .= '</lines>'.LF;
+          $result .= sprintf('<dlgbutton value="%s"/>'.LF, $this->data['cap_submit']);
+          $result .= '</dialog>';
         }
+      } else {
+        $result .= '<message type="question">'.papaya_strings::escapeHTMLChars(
+          @$this->data['no_newsletters']).'</message>';
       }
-      $result .= '</lines>'.LF;
-      $result .= sprintf('<dlgbutton value="%s"/>'.LF, $this->data['cap_submit']);
-      $result .= '</dialog>';
       // confirm plain unsubscription without double-opt-out
     } elseif (isset($_GET['cmd']) && $_GET['cmd'] == 'plain_unsubscription' &&
               !(isset($this->params['confirm']) && $this->params['confirm'] == 1)) {
@@ -303,5 +364,19 @@ class content_newsletter_unsubscribe extends base_content {
     return $result;
   }
 
+  private function getTokenParameters() {
+    if (isset($this->params['token']) && isset($this->params['time'])) {
+      return ['token' => $this->params['token'], 'time' => $this->params['time']];
+    }
+    if (
+      isset($_GET['token']) &&
+      trim($_GET['token'] != '') &&
+      isset($_GET['time']) &&
+      trim($_GET['time'] != '')
+    ) {
+      return ['token' => $_GET['token'], 'time' => $_GET['time']];
+    }
+    return NULL;
+  }
 }
 
