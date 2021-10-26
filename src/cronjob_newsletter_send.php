@@ -17,11 +17,6 @@
 */
 
 /**
-* Basic class cronjobs
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_cronjob.php');
-
-/**
 * Cronjob-module, send queued newsletters
 *
 * @package Papaya-Modules
@@ -69,4 +64,3 @@ class cronjob_newsletter_send extends base_cronjob {
     return FALSE;
   }
 }
-

@@ -16,10 +16,6 @@
 * @version $Id: base_newsletter_queue.php 2 2013-12-09 15:38:42Z weinert $
 */
 
-/**
-* Base class for database access
-*/
-require_once(dirname(__FILE__).'/base_newsletter.php');
 
 /**
 * Newsletter queue handling
@@ -193,7 +189,6 @@ class base_newsletter_queue extends base_newsletter {
   * @return boolean
   */
   function sendNewsletterMail($data, $fillValues) {
-    include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
     $emailObj = new email;
     $emailObj->setSubject($data['subject'], $fillValues);
     if ($data['text']) {
@@ -232,7 +227,6 @@ class base_newsletter_queue extends base_newsletter {
       $this->_moduleOptions = $moduleOptions;
     }
     if (is_null($this->_moduleOptions)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_module_options.php');
       $this->_moduleOptions = base_module_options::getInstance();
     }
     return $this->_moduleOptions;

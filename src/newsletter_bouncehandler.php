@@ -16,10 +16,6 @@
 * @version $Id: newsletter_bouncehandler.php 2 2013-12-09 15:38:42Z weinert $
 */
 
-/**
-* basic class object
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/sys_base_object.php');
 require_once(dirname(__FILE__).'/newsletter_bounce_db.php');
 require_once(dirname(__FILE__).'/bayesian.php');
 
@@ -72,7 +68,6 @@ class newsletter_bouncehandler extends base_object {
 
   function getBounceMaximum() {
     if (is_null($this->_maxBounces)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/papaya_module_options.php');
       $moduleOptions = new papaya_module_options();
       $optionValues = $moduleOptions->getOptions($this->module->guid);
       $this->_maxBounces = empty($optionValues['NEWSLETTER_BOUNCE_COUNTER'])
@@ -268,7 +263,6 @@ class newsletter_bouncehandler extends base_object {
   * @return string xml
   */
   function getPagingBarXML($cat) {
-    include_once(PAPAYA_INCLUDE_PATH.'system/papaya_paging_buttons.php');
     $maxCount = $this->bdb->getMailCountByCategory($cat);
     return papaya_paging_buttons::getPagingButtons(
       $this,

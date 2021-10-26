@@ -18,11 +18,6 @@
 */
 
 /**
-* Basic class cronjobs
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_cronjob.php');
-
-/**
 * Implements the access to an external mailbox account. Read-Only access.
 *
 * @package Papaya-Modules

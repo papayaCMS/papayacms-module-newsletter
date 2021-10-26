@@ -82,7 +82,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[first_name]" value="%s"/>'.LF,
+      '<input type="text" name="%s[first_name]" value="%s" autocomplete="given-name"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['first_name'])
     );
@@ -96,7 +96,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[last_name]" value="%s"/>'.LF,
+      '<input type="text" name="%s[last_name]" value="%s" autocomplete="family-name"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['last_name'])
     );
@@ -119,7 +119,7 @@ class output_newsletter_subscribe extends base_newsletter {
     $error = ' error='. (isset($this->errors['firm']) ? '"yes"' : '"no"');
 
     $string .= sprintf(
-      '<field fid="firm" caption="%s" %s>'.LF,
+      '<field fid="firm" caption="%s" %s autocomplete="organization">'.LF,
       papaya_strings::escapeHTMLChars($data['cap_firm']),
       $error
     );
@@ -138,7 +138,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[position]" value="%s"/>'.LF,
+      '<input type="text" name="%s[position]" value="%s" autocomplete="organization-title"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['position'])
     );
@@ -166,7 +166,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[title]" value="%s"/>'.LF,
+      '<input type="text" name="%s[title]" value="%s" autocomplete="honorific-prefix"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['title'])
     );
@@ -180,7 +180,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[street]" value="%s"/>'.LF,
+      '<input type="text" name="%s[street]" value="%s" autocomplete="street-address"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['street'])
     );
@@ -208,7 +208,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[zip]" value="%s"/>'.LF,
+      '<input type="text" name="%s[zip]" value="%s" autocomplete="postal-code"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['zip'])
     );
@@ -222,7 +222,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[city]" value="%s"/>'.LF,
+      '<input type="text" name="%s[city]" value="%s" autocomplete="city"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['city'])
     );
@@ -236,7 +236,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[phone]" value="%s"/>'.LF,
+      '<input type="text" name="%s[phone]" value="%s" autocomplete="tel"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['phone'])
     );
@@ -250,7 +250,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[mobil]" value="%s"/>'.LF,
+      '<input type="text" name="%s[mobil]" value="%s" autocomplete="tel"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['mobil'])
     );
@@ -277,7 +277,7 @@ class output_newsletter_subscribe extends base_newsletter {
       $error
     );
     $string .= sprintf(
-      '<input type="text" name="%s[email]" value="%s"/>'.LF,
+      '<input type="text" name="%s[email]" value="%s" autocomplete="email"/>'.LF,
       papaya_strings::escapeHTMLChars($this->paramName),
       papaya_strings::escapeHTMLChars(@$this->params['email'])
     );

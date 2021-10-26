@@ -17,11 +17,6 @@
 */
 
 /**
-* Basic class plugin
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_plugin.php');
-
-/**
 * Basic class newsletter
 */
 require_once(dirname(__FILE__).'/base_newsletter.php');
@@ -314,4 +309,3 @@ class connector_newsletter extends base_plugin {
     return $result;
   }
 }
-

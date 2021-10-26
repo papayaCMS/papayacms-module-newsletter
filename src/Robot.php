@@ -17,11 +17,6 @@
 */
 
 /**
-* Load necessary libraries
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_cronjob.php');
-
-/**
 * Cron job module for creating and sending mailings automatically.
 *
 * @package Papaya-Modules

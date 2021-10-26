@@ -17,11 +17,6 @@
 */
 
 /**
-* Basic class page module
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_content.php');
-
-/**
 * Page module import newsletter
 *
 * @package Papaya-Modules

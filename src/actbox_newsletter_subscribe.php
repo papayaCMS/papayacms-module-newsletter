@@ -16,8 +16,6 @@
 * @version $Id: actbox_newsletter_subscribe.php 6 2014-02-13 15:40:43Z SystemVCS $
 */
 
-require_once(PAPAYA_INCLUDE_PATH.'system/base_actionbox.php');
-
 /**
 * Newsletter Box to subscribe to a Newsletter.
 *
@@ -225,7 +223,6 @@ class actbox_newsletter_subscribe extends base_actionbox {
   */
   function getContentToolbar() {
     $contentMode = empty($this->params['contentmode']) ? 0 : (int)$this->params['contentmode'];
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $GLOBALS['PAPAYA_IMAGES'];
     $toolbar->addButton(
@@ -505,7 +502,6 @@ class actbox_newsletter_subscribe extends base_actionbox {
                 $this->newsletterObject->addProtocolEntry(
                   $subscriberId, $newsletterListId, 0, $token, FALSE, $subscriberData);
                 //send confirmation request email
-                include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
                 $email = new email();
 
                 $email->setSender($this->data['mail_from'], $this->data['addresser_name']);
@@ -590,7 +586,6 @@ class actbox_newsletter_subscribe extends base_actionbox {
 
   function initializeOutputForm() {
     if (!(isset($this->subscribeDialog) && is_object($this->subscribeDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       $data = array();
       $hidden = array(
         'cmd' => 'subscribe'
@@ -717,4 +712,3 @@ class actbox_newsletter_subscribe extends base_actionbox {
     return $this->subscribeDialog->getDialogXML();
   }
 }
-

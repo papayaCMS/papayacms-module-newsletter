@@ -17,11 +17,6 @@
 */
 
 /**
-* Basisklasse Aenderungsmodule
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_module.php');
-
-/**
 * Edit module for the newsletter application
 *
 * @package Papaya-Modules
@@ -120,7 +115,6 @@ class edmodule_newsletter extends base_module {
     if (empty($data) && isset($this->parentObj) && isset($this->parentObj->viewLink)) {
       $data = $this->parentObj->viewLink['viewmode_ext'];
     }
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_viewlist.php');
     $viewList = new base_viewlist();
     $viewList->loadViewModesList();
     if (isset($viewList->viewModes) && is_array($viewList->viewModes)) {

@@ -117,7 +117,6 @@ class output_newsletter_unsubscribe extends base_newsletter {
           $this->addRegisterToProtocol(-1, $activateCode);
         }
         $token = $this->existingTokenByEmail($this->params['email']);
-        include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
         $unsubscribeLink = $this->getAbsoluteURL(
           $this->getWebLink($this->module->parentObj->topicId));
         $unsubscribeLink .= $this->recodeQueryString(
@@ -215,4 +214,3 @@ class output_newsletter_unsubscribe extends base_newsletter {
   }
 
 }
-

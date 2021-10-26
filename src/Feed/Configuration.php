@@ -88,7 +88,6 @@ class PapayaModuleNewsletterFeedConfiguration extends PapayaUiControlInteractive
   */
   public function getBaseModuleOptionsObject() {
     if (!is_object($this->_baseModuleOptionsObject)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_module_options.php');
       $this->_baseModuleOptionsObject = new base_module_options();
     }
     return $this->_baseModuleOptionsObject;

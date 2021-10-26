@@ -17,11 +17,6 @@
 */
 
 /**
- * Database access
- */
-require_once(PAPAYA_INCLUDE_PATH.'/system/sys_base_db.php');
-
-/**
 * {%SHORT_CLASS_DESCRIPTION%}
 *
 * @package Papaya-Modules

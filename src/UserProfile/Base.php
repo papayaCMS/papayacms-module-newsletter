@@ -158,7 +158,6 @@ class NewsletterUserProfileBase {
     } elseif (isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE'] instanceof papaya_page) {
       $result = $GLOBALS['PAPAYA_PAGE'];
     } else {
-      include_once(PAPAYA_INCLUDE_PATH.'system/papaya_page.php');
       $result = new papaya_page;
     }
     return $result;
@@ -306,7 +305,6 @@ class NewsletterUserProfileBase {
         'SALUTATION' => $salutation
       );
       // generate email and send it
-      include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
       $emailObj = new email();
       $emailObj->setSender($this->data['senderEMail'], $this->data['senderName']);
       $emailObj->setSubject($this->data['mailSubject']);

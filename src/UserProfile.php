@@ -17,11 +17,6 @@
 */
 
 /**
-* Basic class page module
-*/
-require_once PAPAYA_INCLUDE_PATH.'system/base_content.php';
-
-/**
 * Newsletter user profile page module.
 *
 * @package Papaya-Modules

@@ -21,7 +21,6 @@
 */
 require_once(dirname(__FILE__).'/export_xls.php');
 require_once(dirname(__FILE__).'/base_newsletter.php');
-require_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
 /**
 * Newsletter - general functionality
@@ -1015,7 +1014,6 @@ class papaya_newsletter extends base_newsletter {
   * Loads a list of output modules.
   */
   function loadOutputModulesList() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_viewlist.php');
     $viewList = new base_viewlist;
     $viewList->loadOutputModulesList();
 
@@ -2453,7 +2451,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeSubscriptionForm() {
     if (!(isset($this->subscriptionDialog) && is_object($this->subscriptionDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
       $data = $this->subscriptions[$this->params['newsletter_list_id']];
       $hidden = array(
@@ -2715,7 +2712,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeSubscriberEditForm() {
     if (!(isset($this->subscriberDialog) && is_object($this->subscriberDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       $data = $this->subscriber;
       $hidden = array(
         'cmd' => 'edit_subscriber',
@@ -2857,7 +2853,6 @@ class papaya_newsletter extends base_newsletter {
   * @access private
   */
   function getXMLButtons() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->images;
 
@@ -3431,7 +3426,6 @@ class papaya_newsletter extends base_newsletter {
   * @access private
   */
   function getXMLSubscriberButtons() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->images;
 
@@ -3484,7 +3478,6 @@ class papaya_newsletter extends base_newsletter {
   * @access private
   */
   function getXMLMailingGroupButtons() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->images;
 
@@ -3560,7 +3553,6 @@ class papaya_newsletter extends base_newsletter {
   * @access private
   */
   function getXMLMailingOutputButtons() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->images;
 
@@ -3771,7 +3763,6 @@ class papaya_newsletter extends base_newsletter {
   * @access private
   */
   function getXMLMailingViewButtons() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->images;
 
@@ -3819,7 +3810,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLDelMailingListForm() {
     if (isset($this->newsletterLists[$this->params['newsletter_list_id']])) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $listId = $this->params['newsletter_list_id'];
       $hidden = array(
         'cmd' => 'del_list',
@@ -3849,7 +3839,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLDeleteMailingGroupForm() {
     if (isset($this->oneMailingGroup)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'del_mailinggroup',
         'mailinggroup_id' => $this->params['mailinggroup_id'],
@@ -3879,7 +3868,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLDelMailingForm() {
     if (isset($this->mailings[$this->params['mailing_id']])) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'del_mailing',
         'mailing_id' => $this->params['mailing_id'],
@@ -3909,7 +3897,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLDelMailingOlderForm() {
     if (isset($this->mailings[$this->params['mailing_id']])) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'del_mailing_older',
         'mailing_id' => $this->params['mailing_id'],
@@ -3938,7 +3925,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLDelMailingContentForm() {
     if (isset($this->contents[$this->params['mailingcontent_id']])) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'del_content',
         'mailingcontent_id' => $this->params['mailingcontent_id'],
@@ -3966,7 +3952,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLDelMailingViewForm() {
     if (isset($this->views[$this->params['mailingview_id']])) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'del_view',
         'mailingview_id' => $this->params['mailingview_id'],
@@ -3993,7 +3978,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLDelMailingOutputForm() {
     if (isset($this->oneMailingOutput)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'del_output',
         'mailingoutput_id' => $this->params['mailingoutput_id'],
@@ -4019,7 +4003,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function getXMLParseMailingOutputForm() {
     if (isset($this->oneMailingOutput)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'parse_mailing',
         'mailingoutput_id' => $this->params['mailingoutput_id'],
@@ -4345,7 +4328,6 @@ class papaya_newsletter extends base_newsletter {
     if (isset($this->subscriber) && is_array($this->subscriber) &&
       $this->subscriber['subscriber_id'] == $this->params['subscriber_id']) {
 
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
       $hidden = array(
         'cmd' => 'delete_subscriber',
         'subscriber_id' => $this->subscriber['subscriber_id'],
@@ -4371,7 +4353,6 @@ class papaya_newsletter extends base_newsletter {
   * @access private
   */
   function getXMLDeleteSubscriptionsForm() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
     $hidden = array(
       'cmd' => 'delete_subscriptions',
       'newsletter_list_id' => $this->params['newsletter_list_id'],
@@ -4562,7 +4543,6 @@ class papaya_newsletter extends base_newsletter {
       } else {
 
         $offset = (isset($this->params['offset'])) ? (int)$this->params['offset'] : 0;
-        include_once(PAPAYA_INCLUDE_PATH.'system/papaya_paging_buttons.php');
         $result .= papaya_paging_buttons::getPagingButtons(
           $this,
           array(
@@ -4885,7 +4865,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingGroupForm($newGroup = FALSE) {
     if (!(isset($this->mailingGroupDialog) && is_object($this->mailingGroupDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       if ($newGroup) {
         $data = array();
         $hidden = array(
@@ -5021,7 +5000,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingGroupContentForm($contentType = 'intro') {
     if (!(isset($this->mailingGroupDialog) && is_object($this->mailingGroupDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
       $data = $this->oneMailingGroup;
       $hidden = array(
@@ -5066,7 +5044,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingForm($newMailing = FALSE) {
     if (!(isset($this->mailingDialog) && is_object($this->mailingDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       if ($newMailing) {
         if (isset($this->mailingGroups[(int)$this->params['mailinggroup_id']])) {
           $group = $this->mailingGroups[(int)$this->params['mailinggroup_id']];
@@ -5148,7 +5125,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function intializeMailingCopyForm() {
     if (!(isset($this->mailingDialog) && is_object($this->mailingDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
       if (isset($this->oneMailing)) {
         $data = $this->oneMailing;
@@ -5219,7 +5195,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingIntroForm() {
     if (!(isset($this->mailingDialog) && is_object($this->mailingDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
       if (isset($this->oneMailing)) {
         $data = $this->oneMailing;
@@ -5263,7 +5238,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingFooterForm() {
     if (!(isset($this->mailingDialog) && is_object($this->mailingDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
       if (isset($this->oneMailing)) {
         $data = $this->oneMailing;
@@ -5306,7 +5280,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingContentForm($newContent = FALSE) {
     if (!(isset($this->mailingContentDialog) && is_object($this->mailingContentDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       if ($newContent) {
         $data = array();
         $hidden = array(
@@ -5355,7 +5328,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingOutputForm($newOutput = FALSE) {
     if (!(isset($this->mailingOutputDialog) && is_object($this->mailingOutputDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
 
       if ($newOutput) {
         if (!isset($this->oneMailingGroup) && isset($this->oneMailing)) {
@@ -5492,7 +5464,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeMailingViewForm($newView = FALSE) {
     if (!(isset($this->mailingViewDialog) && is_object($this->mailingViewDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       if ($newView || !isset($this->oneMailingView)) {
         $data = array();
         $hidden = array(
@@ -5566,7 +5537,6 @@ class papaya_newsletter extends base_newsletter {
   */
   function initializeNewsletterListForm($newList = FALSE) {
     if (!(isset($this->listDialog) && is_object($this->listDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       if ($newList) {
         $data = array();
         $hidden = array(
@@ -5646,7 +5616,6 @@ class papaya_newsletter extends base_newsletter {
   * @access private
   */
   function getListViewNav($offset, $step, $max, $groupCount = 9, $paramName = 'offset') {
-    include_once(PAPAYA_INCLUDE_PATH.'system/papaya_paging_buttons.php');
     return papaya_paging_buttons::getPagingButtons(
       $this,
       array('cmd' => 'show', 'mode' => @$this->params['mode']),
@@ -5919,7 +5888,6 @@ class papaya_newsletter extends base_newsletter {
   * @param array $csvStyle {@link papaya_newsletter::guessCSVStyle() }
   */
   function initializeImportMappingForm($cacheId, $csvStyle) {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
     $data = array();
     $hidden = array(
       'cmd' => 'import_csv',
@@ -6005,21 +5973,6 @@ class papaya_newsletter extends base_newsletter {
   * generate confirmation dialog for import
   */
   function initializeImportConfirmDialog() {
-    /*include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
-    $hidden = array(
-      'cmd' => 'import_csv',
-      'step' => 3,
-      'mode' => isset($this->params['mode']) ? $this->params['mode'] : '',
-      'import_newsletter_list_id' => $this->params['import_newsletter_list_id'],
-      'import_surfer_status' => $this->params['import_surfer_status'],
-      'import_dups_mode' => $this->params['import_dups_mode'],
-    );
-    $msg = '';
-    $this->importDialog = new base_msgdialog(
-      $this, $this->paramName, $hidden, $msg, 'question'
-    );
-    $this->importDialog->baseLink = $this->baseLink;
-    $this->importDialog->buttonTitle = 'Yes';*/
     $this->importDialog = $this->getProcessImportScript();
     $this->importDialog .= sprintf(
       '<msgdialog title="%s" width="100%%" action="#" type="question">'.LF,
@@ -7342,7 +7295,6 @@ function processImport() {
         $str .= '</content>'.LF;
         $str .= '</mail>'.LF;
 
-        include_once(PAPAYA_INCLUDE_PATH.'system/papaya_parser.php');
         $parser = new papaya_parser;
         $parser->linkModeAbsolute = TRUE;
         $this->papaya()->pageReferences()->setPreview(FALSE);
@@ -7378,7 +7330,6 @@ function processImport() {
         if (class_exists('PapayaTemplateXslt')) {
           $layoutObj = new PapayaTemplateXslt();
         } else {
-          include_once(PAPAYA_INCLUDE_PATH.'system/papaya_xsl.php');
           $layoutObj = new papaya_xsl();
         }
         if (method_exists($layoutObj, 'setXml')) {
@@ -7881,7 +7832,6 @@ function processImport() {
   * @access private
   */
   function getDeleteQueueConfirmXML() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
     $hidden = array(
       'mailingqueue_mode' => $this->params['mailingqueue_mode'],
       'cmd' => 'clear_queue',
@@ -7994,7 +7944,6 @@ function processImport() {
   */
   function initializeTestMailDialog() {
     if (!(isset($this->dialogTestMail) && is_object($this->dialogTestMail))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       $data = array(
         'subscriber_email' => $this->authUser->user['email'],
         'subscription_format' => 1,
@@ -8232,7 +8181,6 @@ function processImport() {
       $result .= '</panel>';
       $this->layout->add($result);
     } elseif (isset($queue->mailData['text'])) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_simpletemplate.php');
       $template = new base_simpletemplate();
       $mailText = @$template->parse($queue->mailData['text'], $queue->fillValues);
 
@@ -8269,7 +8217,6 @@ function processImport() {
     $queue = new base_newsletter_queue();
     $queue->prepareQueueEmail($queueId);
     if (isset($queue->mailData['html'])) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_simpletemplate.php');
       $template = new base_simpletemplate();
       $mailText = @$template->parse($queue->mailData['html'], $queue->fillValues);
       echo $mailText;
@@ -8298,7 +8245,6 @@ function processImport() {
       if (class_exists('PapayaTemplateXslt')) {
         $xsltObject = new PapayaTemplateXslt();
       } else {
-        include_once(PAPAYA_INCLUDE_PATH.'system/papaya_xsl.php');
         $xsltObject = new papaya_xsl();
       }
       foreach ($feeds as $currentFeed) {
@@ -8371,7 +8317,6 @@ function processImport() {
     // save it as editable copy/content, filter GUID 20e80c718e5991d59e938bcdf4e020f2
     $filterObj = $this->papaya()->plugins->get('20e80c718e5991d59e938bcdf4e020f2', $this);
     $filterObj->data['xslfile'] = $xslFileName;
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_module_options.php');
     $filterObj->templatePath = base_module_options::readOption(
       '96157ec2db3a16c368ff1d21e8a4824a', 'TEMPLATE_PATH', 'newsletter'
     );

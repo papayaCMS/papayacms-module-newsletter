@@ -17,11 +17,6 @@
 */
 
 /**
-* Basic class page module
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_content.php');
-
-/**
 * Page module LinkDB
 *
 * @package Papaya-Modules
@@ -115,7 +110,6 @@ class content_newsletter_unsubscribe extends base_content {
   */
   function getParsedData($parseParams = NULL) {
     $this->setDefaultData();
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
     include_once(dirname(__FILE__).'/base_newsletter.php');
     $newsletterObject = new base_newsletter();
     $newsletterObject->module = $this;
@@ -158,7 +152,7 @@ class content_newsletter_unsubscribe extends base_content {
             $this->getWebLink(NULL, NULL, NULL, $params)
           );
           $replValues['LINK'] = $this->getAbsoluteURL($this->getWebLink(NULL, NULL, NULL, $params));
-          include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
+
           $email = new email();
           $email->setSender($this->data['mail_from'], $this->data['addresser_name']);
           $email->addAddress(
@@ -379,4 +373,3 @@ class content_newsletter_unsubscribe extends base_content {
     return NULL;
   }
 }
-

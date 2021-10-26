@@ -222,7 +222,6 @@ class admin_newsletter_import extends base_db {
   * @return toolbar string
   */
   function getContentToolbar() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $GLOBALS['PAPAYA_IMAGES'];
 
@@ -277,7 +276,6 @@ class admin_newsletter_import extends base_db {
   */
   function initializeDialog() {
     if (!@is_object($this->dialog)) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       if (isset($this->parentObj) && is_object($this->parentObj)) {
         $hidden['page_id'] = $this->parentObj->topicId;
       }
@@ -517,7 +515,6 @@ class admin_newsletter_import extends base_db {
   * @return string dialog
   */
   function getDialog() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
     $hidden = array(
       'contentmode' => @$this->params['contentmode'],
       'cmd'         => @$this->params['cmd'],
@@ -555,7 +552,6 @@ class admin_newsletter_import extends base_db {
   * @return string dialog
   */
   function getIntroFooterDialog() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
     $hidden = array(
       'contentmode' => @$this->params['contentmode'],
       'cmd'         => @$this->params['cmd'],
@@ -597,7 +593,6 @@ class admin_newsletter_import extends base_db {
   * @return string dialog
   */
   function getDelDialog() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
     $hidden = array(
       'contentmode' => @$this->params['contentmode'],
       'cmd'         => 'del',
@@ -743,7 +738,6 @@ class admin_newsletter_import extends base_db {
   * @return string dialog
   */
   function getImportDialog() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_msgdialog.php');
     $hidden = array(
       'contentmode'    => @$this->params['contentmode'],
       'cmd'            => 'import',
@@ -1057,4 +1051,3 @@ class admin_newsletter_import extends base_db {
     return FALSE;
   }
 }
-

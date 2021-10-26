@@ -17,11 +17,6 @@
 */
 
 /**
-* Base class for database access
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/sys_base_db.php');
-
-/**
 * Newsletter administration
 *
 * @package Papaya-Modules
@@ -884,7 +879,6 @@ class base_newsletter extends base_db {
         $this->setSubscriberToken($this->subscriber['subscriber_id'], $token);
       }
 
-      include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
       $emailObj = new email();
       $emailObj->setSender($this->module->data['mail_from'], $this->module->data['addresser_name']);
       $emailObj->setSubject($data['mail_subject'], $data);
@@ -981,4 +975,3 @@ class base_newsletter extends base_db {
     }
   }
 }
-

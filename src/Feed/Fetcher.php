@@ -41,7 +41,6 @@ class PapayaModuleNewsletterFeedFetcher {
       libxml_clear_errors();
       $dom = new PapayaXmlDocument();
       if ($dom->loadXml($feedContents)) {
-        include_once(PAPAYA_INCLUDE_PATH.'system/xml/feeds/atom/papaya_atom_feed.php');
         $feed = new papaya_atom_feed();
         if ($feed->load($dom, $url)) {
           $result = $feed;

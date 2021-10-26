@@ -17,7 +17,6 @@
 */
 
 require_once(dirname(__FILE__).'/bayesian_db.php');
-require_once(PAPAYA_INCLUDE_PATH.'system/sys_base_object.php');
 
 /**
 * implementation of a bayesian filter
@@ -328,4 +327,3 @@ class bayesian extends base_object {
     }
   }
 }
-

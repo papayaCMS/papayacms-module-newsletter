@@ -17,11 +17,6 @@
 */
 
 /**
-* Basic class page module
-*/
-require_once(PAPAYA_INCLUDE_PATH.'system/base_content.php');
-
-/**
 * Page module newsletter
 *
 * @package Papaya-Modules
@@ -268,7 +263,6 @@ class content_newsletter extends base_content {
   * @return string XML
   */
   function getContentToolbar() {
-    include_once(PAPAYA_INCLUDE_PATH.'system/base_btnbuilder.php');
     $toolbar = new base_btnbuilder;
     $toolbar->images = $GLOBALS['PAPAYA_IMAGES'];
     $toolbar->addButton(
@@ -545,7 +539,6 @@ class content_newsletter extends base_content {
                 $this->newsletterObject->addProtocolEntry(
                   $subscriberId, $newsletterListId, 0, $token, FALSE, $subscriberData);
                 //send confirmation request email
-                include_once(PAPAYA_INCLUDE_PATH.'system/sys_email.php');
                 $email = new email();
 
                 $email->setSender($this->data['mail_from'], $this->data['addresser_name']);
@@ -670,7 +663,6 @@ class content_newsletter extends base_content {
 
   function initializeOutputForm() {
     if (!(isset($this->subscribeDialog) && is_object($this->subscribeDialog))) {
-      include_once(PAPAYA_INCLUDE_PATH.'system/base_dialog.php');
       $data = array();
       $hidden = array(
         'cmd' => 'subscribe'
@@ -793,4 +785,3 @@ class content_newsletter extends base_content {
   }
 
 }
-
