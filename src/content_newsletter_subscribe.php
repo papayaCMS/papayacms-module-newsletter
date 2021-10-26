@@ -614,22 +614,23 @@ class content_newsletter extends base_content {
             isset($this->data['detailed_errors']) &&
             $this->data['detailed_errors'] == TRUE) {
           // Yes, detailed error messages
-          $errorMessages = array();
           $genericErrorUsed = FALSE;
           foreach ($this->subscribeDialog->inputErrors as $field => $error) {
             if ($error == 1) {
               $errorMessageIndex = preg_replace('/^subscriber/', 'error', $field);
               if (isset($this->data[$errorMessageIndex])) {
-                $errorMessages[] = $this->data[$errorMessageIndex];
+                $result .= sprintf(
+                  '<message type="error" for="%s">%s</message>',
+                  papaya_strings::escapeHTMLChars($field),
+                  papaya_strings::escapeHTMLChars($this->data[$errorMessageIndex])
+                );
               } elseif ($genericErrorUsed == FALSE) {
                 $errorMessages[] = @$this->data['error_input'];
+                $result .= '<message type="error">'.
+                  papaya_strings::escapeHTMLChars($this->data['error_input'] ?? '').'</message>';
                 $genericErrorUsed = TRUE;
               }
             }
-          }
-          foreach ($errorMessages as $errorMessage) {
-            $result .= '<message type="error">'.
-              papaya_strings::escapeHTMLChars($errorMessage).'</message>';
           }
         } else {
           // No just a generic error message for any input
